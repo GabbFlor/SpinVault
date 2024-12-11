@@ -1,6 +1,15 @@
+import Header from "../components/Header";
+import "../styles/Home_style.css"
+
 const Home = () => {
     return (
-        <h1>Home</h1>
+        <div className="Pag-Home">
+            <Header />
+            
+            <main>
+                asdasdasd
+            </main>
+        </div>
     )
 }
 
