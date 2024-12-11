@@ -1,10 +1,12 @@
 import Grid_home from "../components/Grid_home";
 import Header from "../components/Header";
-import "../styles/Home_style.css"
+import Home_Style from "../styles/Home_style";
 
 const Home = () => {
     return (
         <div className="Pag-Home">
+            <Home_Style />
+
             <Header />
             
             <main>
