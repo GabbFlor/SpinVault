@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import ImgGrid1 from '../assets/grid1.png'
 import ImgGrid2 from '../assets/grid2.png'
 import ImgGrid3 from '../assets/grid3.png'
@@ -10,7 +11,7 @@ const Grid_home = () => {
         <section className="container-grid">
             <div className="item-grid">
                 <img src={ImgGrid1} alt="img1" />
-                <a href="#">Clique aqui!</a>
+                <Link to={`/cadastrar-discos`}>Clique aqui!</Link>
             </div>
 
             <div className="item-grid">

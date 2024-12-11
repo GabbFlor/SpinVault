@@ -4,6 +4,7 @@ import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from './routes/Home.jsx'
 import Geral from './styles/Geral.jsx'
+import Cadastrar_discos from './routes/Cadastrar_discos.jsx'
 
 const routes = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />
+      },
+      {
+        path: "/cadastrar-discos",
+        element: <Cadastrar_discos />
       }
     ]
   }
