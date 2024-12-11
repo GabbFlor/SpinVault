@@ -5,7 +5,7 @@ const Grid_home = () => {
             <div className="item-grid">item2</div>
             <div className="item-grid">item3</div>
             <div className="item-grid">item4</div>
-            <div className="item-grid">item5</div>
+            <div className="item-grid">item</div>
             <div className="item-grid">item6</div>
         </section>
     )
