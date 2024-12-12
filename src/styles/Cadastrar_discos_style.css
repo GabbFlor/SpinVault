@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&family=Michroma&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&family=Michroma&family=Moul&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 .Pag-cadastrar-discos {
     display: flex;
     flex-direction: column;
@@ -14,4 +17,117 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
+
+.section-form-add-disks {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 65vw;
+    max-height: 82.5vh;
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.form-esquerda {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    color: white;
+    z-index: 1;
+    padding: 5.75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.form-esquerda::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../assets/form-backgroundjpeg.jpeg);
+    background-size: cover;
+    background-position: bottom;
+    filter: brightness(0.35);
+    z-index: 0;
+}
+
+.form-esquerda h1, .form-esquerda p {
+    font-family: "Michroma", sans-serif;
+    font-weight: 400;
+    position: relative;
+}
+
+.form-esquerda h1 {
+    font-size: 3vw;
+}
+
+.form-esquerda p {
+    font-size: 1.05vw;
+}
+
+@media (min-width: 1500px) {
+    .form-esquerda h1 {
+        font-size: 2.5vw;
+    }
+    
+    .form-esquerda p {
+        font-size: 0.85vw;
+    }
+}
+
+.form-direita {
+    background-color: white;
+    width: 50%;
+    height: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.div-type {
+    display: flex;
+    flex-direction: column;
+}
+
+.div-type label, .div-select label {
+    cursor: text;
+    font-family: "Michroma", sans-serif;
+    font-weight: 400;
+    font-size: 1vw;
+}
+
+.div-type input {
+    outline: none;
+    padding: 2.5px;
+    border-radius: 2.5px;
+    border: 1px solid #B3B3B3;
+    height: 38px;
+    font-size: 12.5px;
+
+    font-family: "Michroma", sans-serif;
+    font-weight: 400;
+    font-size: 0.75vw;
+}
+
+.css-1jqq78o-placeholder {
+    font-family: "Michroma", sans-serif;
+    font-weight: 400;
+    font-size: 0.75vw;
+}
+
+.css-1nmdiq5-menu label {
+    font-family: "Michroma", sans-serif;
+    font-weight: 400;
+    font-size: 0.75vw;
+}
+

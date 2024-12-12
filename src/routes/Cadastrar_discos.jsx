@@ -1,3 +1,4 @@
+import Form_add_discos from "../components/Form_add_discos";
 import Header from "../components/Header";
 import "../styles/Cadastrar_discos_style.css"
 
@@ -7,14 +8,14 @@ const Cadastrar_discos = () => {
             <Header />
 
             <main>
-                <section>
+                <section className="section-form-add-disks">
                     <div className="form-esquerda">
-                        {/* escrita da esquerda */}
+                        <h1>Cadastro de<br />discos do<br />Spin Vault</h1>
+                        <p>Faça o cadastro aqui<br />para adicionar os<br />seus discos!</p>
                     </div>
 
-                    <form>
-                        {/* inputs do formulario */}
-                    </form>
+                    {/* componente do formulario */}
+                    <Form_add_discos />
                 </section>
             </main>
         </div>
