@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
+import { useMediaQuery } from '@mui/material'
 
 const Tamanhos = [
     { value: 12, label: 12 },
@@ -90,6 +91,49 @@ const Form_add_discos = () => {
         }
     };
 
+    // usando o media query para ajustar a fonte
+    const isLargeScreen = useMediaQuery('(min-width:1500px)');
+    const fontSize = isLargeScreen ? '0.75vw' : '1vw'
+
+    const customStyleSelect = {
+        // se refere ao Select no estado padrao, sem nada selecionado
+        control: (base, { isFocused }) => ({
+            ...base,
+            fontFamily: 'Michroma, sans-serif',
+            fontSize,
+            border: isFocused ? '1px solid #C47D69' : '1px solid #ccc',
+            boxShadow: isFocused ? ' 0 0 0 1px #C47D69' : 'none',
+            '&:hover': {
+                border: '1px solid #C47D69',
+            }
+        }),
+        // se refere a quando tem um valor selecionado no select
+        singleValue: (base) => ({
+            ...base,
+            fontFamily: 'Michroma, sans-serif',
+            fontSize,
+            color: 'rgb(74, 74, 74)',
+        }),
+        placeholder: (base) => ({
+            ...base,
+            fontFamily: 'Michroma, sans-serif',
+            fontSize,
+            color: '#888',
+        }),
+        option: (base, { isSelected }) => ({
+            ...base,
+            fontFamily: 'Michroma, sans-serif',
+            fontSize,
+            backgroundColor: isSelected ? '#C47D69' : 'white',
+            color: isSelected ? 'black' : '#333',
+            ':hover': {
+                backgroundColor: '#c47d699a',
+                color: 'black',
+                boxShadow: '0 0 0 1px #c47d699a'
+            },
+        }),
+    };
+
     return (
         <form className='form-direita' onSubmit={HandleSubmit}>
             <div className='div-type'>
@@ -99,6 +143,7 @@ const Form_add_discos = () => {
                     name="Nome-artista" 
                     value={nomeArtista}
                     onChange={(e) => setNomeArtista(e.target.value)}
+                    placeholder='Digite...'
                 />
             </div>
 
@@ -109,6 +154,7 @@ const Form_add_discos = () => {
                     name="Titulo-album" 
                     value={tituloAlbum}
                     onChange={(e) => setTituloAlbum(e.target.value)}
+                    placeholder='Digite...'
                 />
             </div>
 
@@ -118,6 +164,8 @@ const Form_add_discos = () => {
                     options={Tamanhos} 
                     value={Tamanhos.find(option => option.value === tamanhoDisco) || null}
                     onChange={(e) => setTamanhoDisco(e ? e.value : null)}
+                    styles={customStyleSelect}
+                    placeholder="Selecione..."
                 />
             </div>
 
@@ -128,6 +176,7 @@ const Form_add_discos = () => {
                     name="Ano-disco" 
                     value={anoDisco}
                     onChange={(e) => setAnoDisco(e.target.value)}
+                    placeholder='Digite...'
                 />
             </div>
 
@@ -137,6 +186,8 @@ const Form_add_discos = () => {
                     options={Origem_artista} 
                     value={Origem_artista.find(option => option.value === origemArtista) || null}
                     onChange={(e) => setOrigemArtista(e ? e.value : null)}
+                    styles={customStyleSelect}
+                    placeholder="Selecione..."
                 />
             </div>
 
@@ -146,6 +197,8 @@ const Form_add_discos = () => {
                     options={Origem_disco} 
                     value={Origem_disco.find(option => option.value === origemDisco) || null}
                     onChange={(e) => setOrigemDisco(e ? e.value : null)}
+                    styles={customStyleSelect}
+                    placeholder="Selecione..."
                 />
             </div>
 
@@ -155,6 +208,8 @@ const Form_add_discos = () => {
                     options={Situacao_disco} 
                     value={Situacao_disco.find(option => option.value === situacaoDisco) || null}
                     onChange={(e) => setSituacaoDisco(e ? e.value : null)}
+                    styles={customStyleSelect}
+                    placeholder="Selecione..."
                 />
             </div>
 
@@ -164,6 +219,8 @@ const Form_add_discos = () => {
                     options={Situacao_capa} 
                     value={Situacao_capa.find(option => option.value === situacaoCapa) || null}
                     onChange={(e) => setSituacaoCapa(e ? e.value : null)}
+                    styles={customStyleSelect}
+                    placeholder="Selecione..."
                 />
             </div>
 
@@ -173,6 +230,8 @@ const Form_add_discos = () => {
                     options={Estilo} 
                     value={Estilo.find(option => option.value === estilo) || null}
                     onChange={(e) => setEstilo(e ? e.value : null)}
+                    styles={customStyleSelect}
+                    placeholder="Selecione..."
                 />
             </div>
 
@@ -182,6 +241,8 @@ const Form_add_discos = () => {
                     options={Tipo} 
                     value={Tipo.find(option => option.value === tipo) || null}
                     onChange={(e) => setTipo(e ? e.value : null)}
+                    styles={customStyleSelect}
+                    placeholder="Selecione..."
                 />
             </div>
 
@@ -191,6 +252,8 @@ const Form_add_discos = () => {
                     options={Encarte} 
                     value={Encarte.find(option => option.value === encarte) || null}
                     onChange={(e) => setEncarte(e ? e.value : null)}
+                    styles={customStyleSelect}
+                    placeholder="Selecione..."
                 />
             </div>
 
@@ -201,6 +264,7 @@ const Form_add_discos = () => {
                     name="Observacoes" 
                     value={observacoes}
                     onChange={(e) => setObservacoes(e.target.value)}
+                    placeholder='Digite...'
                 />
             </div>
 

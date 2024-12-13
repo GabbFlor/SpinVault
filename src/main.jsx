@@ -6,6 +6,9 @@ import Home from './routes/Home.jsx'
 import Geral from './styles/Geral.jsx'
 import Cadastrar_discos from './routes/Cadastrar_discos.jsx'
 
+// .css que armazena o import das fontes do site
+import '../src/styles/fonts.css'
+
 const routes = createBrowserRouter([
   {
     path: "/",

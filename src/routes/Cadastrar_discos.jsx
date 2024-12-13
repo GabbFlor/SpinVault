@@ -1,10 +1,12 @@
 import Form_add_discos from "../components/Form_add_discos";
 import Header from "../components/Header";
-import "../styles/Cadastrar_discos_style.css"
+import Cadastrar_discos_style from "../styles/Cadastrar_discos_style";
 
 const Cadastrar_discos = () => {
     return (
         <div className="Pag-cadastrar-discos">
+            <Cadastrar_discos_style />
+
             <Header />
 
             <main>
@@ -14,7 +16,6 @@ const Cadastrar_discos = () => {
                         <p>Faça o cadastro aqui<br />para adicionar os<br />seus discos!</p>
                     </div>
 
-                    {/* componente do formulario */}
                     <Form_add_discos />
                 </section>
             </main>

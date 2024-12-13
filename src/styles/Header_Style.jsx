@@ -78,6 +78,11 @@ const Header_Style = createGlobalStyle `
         font-size: 2rem;
         cursor: pointer;
     }
+
+    .header-logo img {
+        // background-color: red;
+        height: 9vw;
+    }
 `
 
 export default Header_Style;
