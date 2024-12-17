@@ -9,31 +9,37 @@ import ImgGrid6 from '../assets/grid6.png'
 const Grid_home = () => {
     return (
         <section className="container-grid">
+            {/* cadastrar discos */}
             <div className="item-grid">
                 <img src={ImgGrid1} alt="img1" />
                 <Link to={`/cadastrar-discos`}>Clique aqui!</Link>
             </div>
 
+            {/* relacao completa */}
             <div className="item-grid">
                 <img src={ImgGrid2} alt="img2" />
                 <a href="#">Clique aqui!</a>
             </div>
 
+            {/* discos nacionais */}
             <div className="item-grid">
                 <img src={ImgGrid3} alt="img3" />
                 <a href="#">Clique aqui!</a>
             </div>
 
+            {/* discos internacionais */}
             <div className="item-grid">
                 <img src={ImgGrid4} alt="img4" />
                 <a href="#">Clique aqui!</a>
             </div>
 
+            {/* infos gerais */}
             <div className="item-grid">
                 <img src={ImgGrid5} alt="img5" />
-                <a href="#">Clique aqui!</a>
+                <Link to={`/informacoes-gerais`}>Clique aqui!</Link>
             </div>
 
+            {/* busca inteligente */}
             <div className="item-grid">
                 <img src={ImgGrid6} alt="img6" />
                 <a href="#">Clique aqui!</a>

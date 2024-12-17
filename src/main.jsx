@@ -8,6 +8,7 @@ import Cadastrar_discos from './routes/Cadastrar_discos.jsx'
 
 // .css que armazena o import das fontes do site
 import '../src/styles/fonts.css'
+import Informacoes_gerais from './routes/Informacoes_gerais.jsx'
 
 const routes = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const routes = createBrowserRouter([
       {
         path: "/cadastrar-discos",
         element: <Cadastrar_discos />
+      },
+      {
+        path: "/informacoes-gerais",
+        element: <Informacoes_gerais />
       }
     ]
   }
