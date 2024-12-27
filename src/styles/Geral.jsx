@@ -21,6 +21,15 @@ const Geral = createGlobalStyle `
         height: 100vh;
         overflow-x: hidden;
     }
+
+    .carregamento {
+        width: 100vw;
+        height: 100vh;
+        overflow-x: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 `
 
 export default Geral;

@@ -9,7 +9,7 @@ const Header_Style = createGlobalStyle `
         align-items: center;
         padding: 5px;
         background-color: white
-    }
+    } 
 
     .section-search {
         display: inline-flex;
@@ -77,6 +77,7 @@ const Header_Style = createGlobalStyle `
     .icon-person {
         font-size: 2rem;
         cursor: pointer;
+        color: black;
     }
 
     .header-logo img {

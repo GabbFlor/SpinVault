@@ -29,7 +29,7 @@ const Header = () => {
                 </div>
             </section>
 
-            <BsPersonFill className='icon-person' />
+            <Link to={"/perfil"} title='Perfil'><BsPersonFill className='icon-person' /></Link>
         </header>
     )
 }

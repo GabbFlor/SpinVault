@@ -5,12 +5,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from './routes/Home.jsx'
 import Geral from './styles/Geral.jsx'
 import Cadastrar_discos from './routes/Cadastrar_discos.jsx'
-
-// .css que armazena o import das fontes do site
-import '../src/styles/fonts.css'
 import Informacoes_gerais from './routes/Informacoes_gerais.jsx'
 import Registro from './routes/Registro.jsx'
 import Login from './routes/Login.jsx'
+import { AuthProvider } from './AuthContext.jsx'
+import ProtectedRoute from './ProtectedRoutes.jsx'
+import Perfil from './routes/Perfil.jsx'
+
+// .css que armazena o import das fontes do site
+import '../src/styles/fonts.css'
+
 
 const routes = createBrowserRouter([
   {
@@ -21,18 +25,7 @@ const routes = createBrowserRouter([
     // errorElement
 
     children: [
-      {
-        path: "/",
-        element: <Home />
-      },
-      {
-        path: "/cadastrar-discos",
-        element: <Cadastrar_discos />
-      },
-      {
-        path: "/informacoes-gerais",
-        element: <Informacoes_gerais />
-      },
+      // rotas publicas (podem ser acessadas por qualquer um)
       {
         path: "/auth/registro",
         element: <Registro />
@@ -40,15 +33,60 @@ const routes = createBrowserRouter([
       {
         path: "/auth/login",
         element: <Login />
-      }
+      },
+      
+      // rotas protegidas (só podem ser acessadas por usuários autenticados)
+      {
+        path: "/",
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/cadastrar-discos",
+        element: (
+          <ProtectedRoute>
+            <Cadastrar_discos />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/informacoes-gerais",
+        element: (
+          <ProtectedRoute>
+            <Informacoes_gerais />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/perfil",
+        element: (
+          <ProtectedRoute>
+            <Perfil />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/perfil/:profile_id",
+        element: (
+          <ProtectedRoute>
+            <Perfil /> 
+          </ProtectedRoute>
+        )
+      },
     ]
   }
 ])
 
+
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Geral />
-
-    <RouterProvider router={routes} />
+    <AuthProvider>
+      <Geral />
+      <RouterProvider router={routes} />
+    </AuthProvider>
   </StrictMode>,
 )

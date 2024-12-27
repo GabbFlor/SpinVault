@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react"
 import { BsLock, BsUnlock } from "react-icons/bs"
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { auth, db } from "../firebase-config"
+import { addDoc, collection } from "firebase/firestore"
+import { useAuth } from "../AuthContext"
 
 const Form_registro = () => {
-    const [user, setUser] = useState("")
+    const [userName, setUserName] = useState("")
     const [email, setEmail] = useState("")
     const [tell, setTell] = useState("")
     const [password, setPassword] = useState("")
@@ -15,15 +19,10 @@ const Form_registro = () => {
     const [iconConfirmPassW, setIconConfirmPassW] = useState(<BsLock />)
     const [verificPassW, setVerificPassW] = useState(null);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const navigate = useNavigate();
 
-        if (user !== "" && email !== "" && tell !== "" && password !== "") {
-            console.log(`tudo enviado: ${user}, ${email}, ${tell}, ${password}`)
-        } else {
-            alert(`Nenhum dos campos podem estar vazios!`)
-        }
-    }
+    // pegar as infos do usuário
+    const { user, loading } = useAuth();
 
     const handleShowPassword = () => {
         if (typePassW == "password") {
@@ -55,15 +54,42 @@ const Form_registro = () => {
         );
     }, [password, confirmPassword])
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const credenciaisDoUsuario = await createUserWithEmailAndPassword(auth, email, password);
+
+            // armazenando as infos do usuario logo apos a criação para evitar problemas com a ordem de execução
+            const novoUser = credenciaisDoUsuario.user;
+
+            await addDoc(collection(db, "Users"), {
+                User_id: novoUser.uid,
+                User_name: userName,
+                Email: email,
+                Tell: tell,
+                Criado_em: new Date(),
+            });
+
+            navigate('/');
+        } catch(error) {
+            alert(`Erro ao fazer login: ${error.message}`)
+        }
+
+        if (loading) { 
+            return ("Carregando...")
+        }
+    }
+
     return (
         <form className="form-direita" onSubmit={handleSubmit}>
             <div>
-                <label htmlFor="user">Usuário</label>
+                <label htmlFor="userName">Usuário</label>
                 <input 
                     type="text"
-                    name="user"
-                    value={user}
-                    onChange={(e) => setUser(e.target.value)}
+                    name="userName"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
                     placeholder="Digite..."
                     required
                 />
@@ -131,7 +157,7 @@ const Form_registro = () => {
                 className="btn-submit-registro"
                 disabled={
                     verificPassW == false || verificPassW == null ||
-                    user == "" || email == "" || tell == ""
+                    userName == "" || email == "" || tell == ""
                 }
                 >
                     Criar conta!

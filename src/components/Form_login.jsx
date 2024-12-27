@@ -1,12 +1,16 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { BsLock, BsUnlock } from "react-icons/bs"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase-config";
 
 const Form_login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [typePassW, setTypePassW] = useState("password")
     const [iconPassW, setIconPassW] = useState(<BsLock />)
+
+    const navigate = useNavigate();
 
     const handleShowPassword = () => {
         if (typePassW == "password") {
@@ -18,13 +22,14 @@ const Form_login = () => {
         };
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (email !== "" && password !== "") {
-            console.log(`Tudo enviado, Email: ${email}, Senha: ${password}`)
-        } else {
-            alert('Todos os campos precisam estar preenchidos!')
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate('/');
+        } catch(error) {
+            alert(`Erro ao fazer login: ${error.message}`)
         }
     }
 
