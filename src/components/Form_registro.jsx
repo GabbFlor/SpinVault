@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth, db } from "../firebase-config"
 import { addDoc, collection } from "firebase/firestore"
 import { useAuth } from "../AuthContext"
+import Swal from "sweetalert2"
 
 const Form_registro = () => {
     const [userName, setUserName] = useState("")
@@ -71,13 +72,39 @@ const Form_registro = () => {
                 Criado_em: new Date(),
             });
 
-            navigate('/');
+            Swal.fire({
+                icon: "success",
+                title: "Sucesso!",
+                text: `O usuário "${userName}" foi registrado com sucesso!`,
+                timer: 1000
+            })
+            .then(() => {
+                navigate('/');
+            })
         } catch(error) {
-            alert(`Erro ao fazer login: ${error.message}`)
-        }
+            let errorMessage;
 
-        if (loading) { 
-            return ("Carregando...")
+            switch(error.message) {
+                case "Firebase: Error (auth/email-already-in-use).":
+                    errorMessage = "Esse email já está sendo usado por outro usuário.";
+                    break;
+                case "Firebase: Password should be at least 6 characters (auth/weak-password).":
+                    errorMessage = "A senha fornecida é muito curta, é necessário ao menos 6 caracteres."
+                    break;
+                case "Firebase: Error (auth/invalid-password).":
+                    errorMessage = "A senha é inválida, tente outra."
+                    break;
+                default:
+                    errorMessage = `Ocorreu um erro desconhecido: ${error.message}`
+                    break;
+            }
+            
+            Swal.fire({
+                icon: "error",
+                title: "Erro!",
+                text: errorMessage,
+                showConfirmButton: true
+            })
         }
     }
 

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BsLock, BsUnlock } from "react-icons/bs"
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase-config";
+import Swal from "sweetalert2";
 
 const Form_login = () => {
     const [email, setEmail] = useState("")
@@ -27,9 +28,34 @@ const Form_login = () => {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            navigate('/');
+
+            Swal.fire({
+                icon: "success",
+                title: "Sucesso!",
+                text: "Login realizado com sucesso!",
+                timer: 1000, 
+            })
+            .then(() => {
+                navigate('/');
+            })
         } catch(error) {
-            alert(`Erro ao fazer login: ${error.message}`)
+            let errorMessage;
+
+            switch(error.message) {
+                case "Firebase: Error (auth/invalid-credential).":
+                    errorMessage = "Email ou senha incorretos.";
+                    break;
+                default:
+                    errorMessage = `Erro desconhecido: ${error.message}`;
+                    break
+            }
+
+            Swal.fire({
+                icon: "error",
+                title: "Erro!",
+                text: errorMessage,
+                showConfirmButton: true
+            })
         }
     }
 
