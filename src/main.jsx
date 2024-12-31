@@ -14,6 +14,7 @@ import Perfil from './routes/Perfil.jsx'
 
 // .css que armazena o import das fontes do site
 import '../src/styles/fonts.css'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
 const routes = createBrowserRouter([
@@ -80,13 +81,16 @@ const routes = createBrowserRouter([
   }
 ])
 
-
+// cria o react query
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
-      <Geral />
-      <RouterProvider router={routes} />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Geral />
+        <RouterProvider router={routes} />
+      </AuthProvider>
+    </QueryClientProvider>
   </StrictMode>,
 )

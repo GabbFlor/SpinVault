@@ -1,0 +1,27 @@
+.Pag-perfil {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, #000000, #c47d69, #000000);
+    width: 100%;
+}
+
+.Pag-perfil main {
+    width: 100%;
+    /* essa bomba aqui para n ficar branco quando o conteúdo não chegar até o fim da página */
+    min-height: fit-content;
+    height: calc(100vh - 60px);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.perfil-infos {
+    background-color: #232323;
+    color: white;
+}
+
+.perfil-infos h1, .perfil-infos p, .perfil-infos span {
+    font-family: "Michroma", serif;
+    font-weight: 400;
+}

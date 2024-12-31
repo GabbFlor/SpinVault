@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { BsLock, BsUnlock } from "react-icons/bs"
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth, db } from "../firebase-config"
-import { addDoc, collection } from "firebase/firestore"
+import { doc, setDoc } from "firebase/firestore"
 import { useAuth } from "../AuthContext"
 import Swal from "sweetalert2"
 
@@ -64,8 +64,8 @@ const Form_registro = () => {
             // armazenando as infos do usuario logo apos a criação para evitar problemas com a ordem de execução
             const novoUser = credenciaisDoUsuario.user;
 
-            await addDoc(collection(db, "Users"), {
-                User_id: novoUser.uid,
+            // cria a query adicionando o id do user como título do documento
+            await setDoc(doc(db, "Users", novoUser.uid), {
                 User_name: userName,
                 Email: email,
                 Tell: tell,
