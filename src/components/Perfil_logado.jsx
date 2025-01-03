@@ -7,6 +7,7 @@ import { tailChase } from 'ldrs';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Card_img from '../assets/card-img.png'
+import Swal from 'sweetalert2';
 
 const Perfil_logado = () => {
     const { user, loading } = useAuth();
@@ -76,8 +77,19 @@ const Perfil_logado = () => {
         </div>
     );
 
-    const handleLogout = async() => {
-        await signOut(auth);
+    const handleLogout = () => {
+        Swal.fire({
+            icon: "question",
+            title: "Confirmação",
+            text: "Você tem certeza que deseja sair da sua conta?",
+            showConfirmButton: true,
+            showCancelButton: true,
+        })
+        .then(async(result) => {
+            if (result.isConfirmed) {
+                await signOut(auth);
+            }
+        })
     }
 
     return (
@@ -88,9 +100,11 @@ const Perfil_logado = () => {
                 </div>
                 {/* IMAGEM DO PERFIL */}
 
-                <div>
+                <div className='infos-up'>
                     <h1>{userProfile.User_name}</h1>
                     <p className='destaque'>Sp. Santo André</p>
+
+                    <button onClick={() => handleLogout()} className='btn-logout'>Logout</button>
                 </div>
 
                 <div className='sub-perfil-info'>
@@ -147,7 +161,7 @@ const Perfil_logado = () => {
             // <p>Criado em: {Criado_em_convertido}</p>
     
     // Btn de logout:
-            // <button onClick={() => handleLogout()}>Logout</button>
+            // 
 }
 
 export default Perfil_logado;
