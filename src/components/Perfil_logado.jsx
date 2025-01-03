@@ -102,7 +102,7 @@ const Perfil_logado = () => {
 
                 <div className='infos-up'>
                     <h1>{userProfile.User_name}</h1>
-                    <p className='destaque'>Sp. Santo André</p>
+                    <p className='destaque'>{userProfile.Estado}. {userProfile.Cidade}</p>
 
                     <button onClick={() => handleLogout()} className='btn-logout'>Logout</button>
                 </div>

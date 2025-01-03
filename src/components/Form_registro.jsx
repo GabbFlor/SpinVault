@@ -6,6 +6,9 @@ import { auth, db } from "../firebase-config"
 import { doc, setDoc } from "firebase/firestore"
 import { useAuth } from "../AuthContext"
 import Swal from "sweetalert2"
+import axios from "axios"
+import Select from "react-select"
+import { useMediaQuery } from '@mui/material'
 
 const Form_registro = () => {
     const [userName, setUserName] = useState("")
@@ -19,6 +22,12 @@ const Form_registro = () => {
     const [typeConfirmPassW, setTypeConfirmPassW] = useState("password")
     const [iconConfirmPassW, setIconConfirmPassW] = useState(<BsLock />)
     const [verificPassW, setVerificPassW] = useState(null);
+
+    // useState para seleção de localidade
+    const [estados, setEstados] = useState([]);
+    const [cidades, setCidades] = useState([]);
+    const [estadoSelecionado, setEstadoSelecionado] = useState(null);
+    const [cidadeSelecionado, setCidadeSelecionado] = useState(null);
 
     const navigate = useNavigate();
 
@@ -69,6 +78,8 @@ const Form_registro = () => {
                 User_name: userName,
                 Email: email,
                 Tell: tell,
+                Estado: estadoSelecionado,
+                Cidade: cidadeSelecionado,
                 Criado_em: new Date(),
             });
 
@@ -108,6 +119,80 @@ const Form_registro = () => {
         }
     }
 
+    // Carregar os estados e as cidades da API do IBGE
+    useEffect(() => {
+        axios.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+        .then(response => {
+            // formatando os etados para o React Select poder ler
+            const estadosFormatados = response.data.map(estado => ({
+                value: estado.sigla,
+                label: estado.nome
+            }));
+            setEstados(estadosFormatados);
+        })
+        .catch(err => console.error(`Erro ao carregar os estados: ${err}`))
+    }, [])
+    useEffect(() => {
+        if(estadoSelecionado) {
+            axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoSelecionado}/municipios`)
+            .then(response => {
+                const cidadesFormatadas = response.data.map(cidade => ({
+                    value: cidade.nome,
+                    label: cidade.nome
+                }));
+                setCidades(cidadesFormatadas)
+            })
+            .catch(err => console.error(`Erro ao carregar as cidades: ${err}`));
+        } else {
+            setCidades([]);
+        }
+    }, [estadoSelecionado]);
+
+    // estilos do React Select (ctrl + c, ctrl + v do form add discos)
+
+    // usando o media query para ajustar a fonte
+    const isLargeScreen = useMediaQuery('(min-width:1500px)');
+    const fontSize = isLargeScreen ? '0.75vw' : '1vw'
+
+    const customStyleSelect = {
+        // se refere ao Select no estado padrao, sem nada selecionado
+        control: (base, { isFocused }) => ({
+            ...base,
+            fontFamily: 'Michroma, sans-serif',
+            fontSize,
+            border: isFocused ? '1px solid #C47D69' : '1px solid #ccc',
+            boxShadow: isFocused ? ' 0 0 0 1px #C47D69' : 'none',
+            '&:hover': {
+                border: '1px solid #C47D69',
+            }
+        }),
+        // se refere a quando tem um valor selecionado no select
+        singleValue: (base) => ({
+            ...base,
+            fontFamily: 'Michroma, sans-serif',
+            fontSize,
+            color: 'rgb(74, 74, 74)',
+        }),
+        placeholder: (base) => ({
+            ...base,
+            fontFamily: 'Michroma, sans-serif',
+            fontSize,
+            color: '#888',
+        }),
+        option: (base, { isSelected }) => ({
+            ...base,
+            fontFamily: 'Michroma, sans-serif',
+            fontSize,
+            backgroundColor: isSelected ? '#C47D69' : 'white',
+            color: isSelected ? 'black' : '#333',
+            ':hover': {
+                backgroundColor: '#c47d699a',
+                color: 'black',
+                boxShadow: '0 0 0 1px #c47d699a'
+            },
+        }),
+    };
+
     return (
         <form className="form-direita" onSubmit={handleSubmit}>
             <div>
@@ -141,6 +226,26 @@ const Form_registro = () => {
                     onChange={(e) => setTell(e.target.value)}
                     placeholder="Digite..."
                     required
+                />
+            </div>
+            <div className="div-select">
+                <label htmlFor="estado">Estado</label>
+                <Select
+                    options={estados}
+                    value={estados.find(option => option.value === estadoSelecionado) || null}
+                    onChange={(e) => setEstadoSelecionado(e ? e.value : null)}
+                    placeholder="Selecione..."
+                    styles={customStyleSelect}
+                />
+            </div>
+            <div className="div-select">
+                <label htmlFor="cidade">Cidade</label>
+                <Select
+                    options={cidades}
+                    value={cidades.find(option => option.value === cidadeSelecionado) || null}
+                    onChange={(e) => setCidadeSelecionado(e ? e.value : null)}
+                    placeholder="Selecione..."
+                    styles={customStyleSelect}
                 />
             </div>
             <div className="input-senha">
@@ -184,7 +289,8 @@ const Form_registro = () => {
                 className="btn-submit-registro"
                 disabled={
                     verificPassW == false || verificPassW == null ||
-                    userName == "" || email == "" || tell == ""
+                    userName == "" || email == "" || tell == "" ||
+                    estadoSelecionado == null || cidadeSelecionado == null
                 }
                 >
                     Criar conta!

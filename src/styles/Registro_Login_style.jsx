@@ -88,13 +88,13 @@ const Registro_login_style = createGlobalStyle `
         gap: 15px;
     }
 
-    .form-direita div {
+    .form-direita div:not(.div-select div) {
         display: flex;
         flex-direction: column;
         width: 100%;
     }
 
-    .form-direita div {
+    .form-direita div:not(.div-select div) {
         font-family: "Michroma", sans-serif;
         font-weight: 400;
         font-size: 1vw;
@@ -112,7 +112,7 @@ const Registro_login_style = createGlobalStyle `
         color: #a66958;
     }
 
-    .form-direita input {
+    .form-direita input:not(.div-select input) {
         outline: none;
         padding: 2.5px 0 2.5px 10px;
         border-radius: 2.5px;
@@ -189,15 +189,15 @@ const Registro_login_style = createGlobalStyle `
         }
 
         .form-direita label {
-            font-size:0.75vw;
+            font-size: 0.75vw;
         }
 
         .form-direita a {
-            font-size:0.75vw;
+            font-size: 0.75vw;
         }
 
         .form-direita input {
-            font-size: 0.75vw;
+            font-size: 0.75vw !important;
         }
 
         .btn-submit-registro {
