@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 import { useMediaQuery } from '@mui/material'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '../firebase-config'
+import Swal from 'sweetalert2'
+import { useAuth } from '../AuthContext'
 
 const Tamanhos = [
     { value: 12, label: 12 },
@@ -68,26 +72,83 @@ const Form_add_discos = () => {
     const [encarte, setEncarte] = useState(null);
     const [observacoes, setObservacoes] = useState("");
 
-    const HandleSubmit = (e) => {
+    // pegando as infos do usuario
+    const { user, loading } = useAuth();
+
+    const HandleSubmit = async (e) => {
         e.preventDefault();
     
         if (nomeArtista !== "" && tituloAlbum !== "" && anoDisco !== "" && tamanhoDisco !== null && origemArtista !== null &&
             origemDisco !== null && situacaoDisco !== null && situacaoCapa !== null && estilo !== null && tipo !== null && encarte !== null) {
             
-            console.log(`Nome do Artista: ${nomeArtista}`);
-            console.log(`Título do Álbum: ${tituloAlbum}`);
-            console.log(`Tamanho do Disco: ${tamanhoDisco}`);
-            console.log(`Ano do Disco: ${anoDisco}`);
-            console.log(`Origem do Artista: ${origemArtista}`);
-            console.log(`Origem do Disco: ${origemDisco}`);
-            console.log(`Situação do Disco: ${situacaoDisco}`);
-            console.log(`Situação da Capa: ${situacaoCapa}`);
-            console.log(`Estilo: ${estilo}`);
-            console.log(`Tipo: ${tipo}`);
-            console.log(`Encarte: ${encarte}`);
-            console.log(`Observações: ${observacoes}`);
+            // console.log(`Nome do Artista: ${nomeArtista}`);
+            // console.log(`Título do Álbum: ${tituloAlbum}`);
+            // console.log(`Tamanho do Disco: ${tamanhoDisco}`);
+            // console.log(`Ano do Disco: ${anoDisco}`);
+            // console.log(`Origem do Artista: ${origemArtista}`);
+            // console.log(`Origem do Disco: ${origemDisco}`);
+            // console.log(`Situação do Disco: ${situacaoDisco}`);
+            // console.log(`Situação da Capa: ${situacaoCapa}`);
+            // console.log(`Estilo: ${estilo}`);
+            // console.log(`Tipo: ${tipo}`);
+            // console.log(`Encarte: ${encarte}`);
+            // console.log(`Observações: ${observacoes}`);
+
+            try {
+                await addDoc(collection(db, "Discos"), {
+                    User_id: user.uid,
+                    Nome_artista: nomeArtista,
+                    Titulo_album: tituloAlbum,
+                    Tamanho: tamanhoDisco,
+                    Ano: anoDisco,
+                    Origem_artista: origemArtista,
+                    Origem_disco: origemDisco,
+                    Situacao_disco: situacaoDisco,
+                    Situacao_capa: situacaoCapa,
+                    Estilo: estilo,
+                    Tipo: tipo,
+                    Encarte: encarte,
+                    Observacoes: observacoes,
+                    Criado_em: new Date(),
+                });
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Sucesso!",
+                    text: `O álbum ${tituloAlbum} foi adicionado com sucesso!`,
+                    timer: 1000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                })
+                .then(() => {
+                    setNomeArtista("");
+                    setTituloAlbum("");
+                    setTamanhoDisco(null);
+                    setAnoDisco("")
+                    setOrigemArtista(null)
+                    setOrigemDisco(null);
+                    setSituacaoDisco(null);
+                    setSituacaoCapa(null);
+                    setEstilo(null);
+                    setTipo(null);
+                    setEncarte(null);
+                    setObservacoes("")
+                })
+            } catch(error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro!",
+                    text: `Erro ao adicionar o álbum: ${error.message}, contate algum administrador do sistema.`,
+                    showConfirmButton: true,
+                })
+            }
         } else {
-            console.error("Nenhum campo pode estar vazio!");
+            Swal.fire({
+                icon: "error",
+                title: "Erro!",
+                text: `Todos os campos do formulário devem estar preenchidos!`,
+                showConfirmButton: true,
+            })
         }
     };
 
