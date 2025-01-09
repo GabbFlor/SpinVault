@@ -1,14 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 
 const Perfil_style = createGlobalStyle `
-    .Pag-perfil {
+    .Pag-perfil, .Pag-editar-perfil {
         display: flex;
         flex-direction: column;
         background: linear-gradient(to right, #000000, #c47d69, #000000);
         width: 100%;
     }
 
-    .Pag-perfil main {
+    .Pag-perfil main, .Pag-editar-perfil main {
         width: 100%;
         /* essa bomba aqui para n ficar branco quando o conteúdo não chegar até o fim da página */
         min-height: fit-content;
@@ -41,7 +41,15 @@ const Perfil_style = createGlobalStyle `
         position: relative;
     }
 
-    .perfil-infos h1, .perfil-infos p, .perfil-infos span, .perfil-add-disks h1, .btn-card {
+    .perfil-infos h1, 
+    .perfil-infos p, 
+    .perfil-infos span, 
+    .perfil-add-disks h1, 
+    .btn-card,
+    .form-edit-perfil div label,
+    .form-edit-perfil div input,
+    .div-btns-form-edit button,
+    .div-btns-form-edit a, {
         font-family: "Michroma", serif;
         font-weight: 400;
     }
@@ -78,11 +86,11 @@ const Perfil_style = createGlobalStyle `
     }
 
     .img-temporario {
-        background-color: white;
+        background-color: grey;
+        color: grey;
         width: 12.5vw;
         height: 12.5vw;
         border-radius: 100%;
-
         margin-top: -125px;
         text-align: center;
     }
@@ -152,12 +160,74 @@ const Perfil_style = createGlobalStyle `
         margin-top: 10px;
         cursor: pointer;
         transition: color 0.3s, background-color 0.3s;
+        width: 5vw;
+        text-align: center;
+        font-weight: 400;
     }
 
     .btn-logout:hover {
         background-color: #C47D69;
         color: black;
         transition: color 0.3s, background-color 0.3s;
+    }
+
+    .div-infos-btns {
+        display: inline-flex;
+        gap: 10px
+    }
+
+    .form-edit-perfil {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 60%;
+    }
+
+    .form-edit-perfil div:not(.div-btns-form-edit, .div-select div) {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .form-edit-perfil div label {
+        font-size: 1.25vw;
+    }
+
+    .form-edit-perfil div input:not(.div-select input) {
+        padding: 7.5px;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        font-size: 1vw;
+        height: 38px;
+    }
+
+    .form-edit-perfil div input:not(.div-select input):focus {
+        box-shadow: 0 0 0 1.5px #C47D69;
+    }
+
+    .div-btns-form-edit {
+        display: inline-flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
+    .div-btns-form-edit button, .div-btns-form-edit a {
+        background-color: black;
+        color: white;
+        border: none;
+        outline: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 1.05vw;
+        cursor: pointer;
+        border: 1px solid black;
+        transition: border, 0.3s;
+    }
+
+    .div-btns-form-edit button:hover,
+    .div-btns-form-edit a:hover {
+        border: 1px solid white;
     }
 
     @media (min-width: 1500px) {
@@ -183,6 +253,23 @@ const Perfil_style = createGlobalStyle `
 
         .btn-card {
             font-size: 1.20vw ;
+        }
+        
+        .form-edit-perfil {
+            width: 50%;
+        }
+
+        .form-edit-perfil div label {
+            font-size: 1vw;
+        }
+
+        .form-edit-perfil div input {
+            font-size: 0.75vw !important;
+        }
+
+        .div-btns-form-edit button,
+        .div-btns-form-edit a {
+            font-size: 0.80vw;
         }
     }
 `

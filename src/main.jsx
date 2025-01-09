@@ -15,6 +15,7 @@ import Perfil from './routes/Perfil.jsx'
 // .css que armazena o import das fontes do site
 import '../src/styles/fonts.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Editar_perfil from './routes/Editar_perfil.jsx'
 
 
 const routes = createBrowserRouter([
@@ -66,6 +67,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Perfil />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/perfil/editar",
+        element: (
+          <ProtectedRoute>
+            <Editar_perfil />
           </ProtectedRoute>
         )
       },

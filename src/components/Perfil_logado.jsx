@@ -2,7 +2,7 @@ import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase-config'
 import { useAuth } from '../AuthContext';
 import { doc, getDoc } from 'firebase/firestore';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { tailChase } from 'ldrs';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 const Perfil_logado = () => {
     const { user, loading } = useAuth();
     const [ diferencaData, setDiferencaData ] = useState(0);
+    const queryClient = useQueryClient();
     tailChase.register()
 
     // função para pegar o perfil do usuario logado
@@ -104,7 +105,10 @@ const Perfil_logado = () => {
                     <h1>{userProfile.User_name}</h1>
                     <p className='destaque'>{userProfile.Estado}. {userProfile.Cidade}</p>
 
-                    <button onClick={() => handleLogout()} className='btn-logout'>Logout</button>
+                    <div className='div-infos-btns'>
+                        <button onClick={() => handleLogout()} className='btn-logout'>Logout</button>
+                        <Link to={'/perfil/editar'} className='btn-logout'>Editar</Link>
+                    </div>
                 </div>
 
                 <div className='sub-perfil-info'>
@@ -117,7 +121,6 @@ const Perfil_logado = () => {
                     <div>
                         <p>Adicionados</p>
 
-                        {/* usar fonte maior do span de cima */}
                         <span>12</span>
                     </div>
                 </div>
