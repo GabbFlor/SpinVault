@@ -1,14 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 
 const Perfil_style = createGlobalStyle `
-    .Pag-perfil, .Pag-editar-perfil {
+    .Pag-perfil, .Pag-editar-perfil, .Pag-mudar-senha {
         display: flex;
         flex-direction: column;
         background: linear-gradient(to right, #000000, #c47d69, #000000);
         width: 100%;
     }
 
-    .Pag-perfil main, .Pag-editar-perfil main {
+    .Pag-perfil main, .Pag-editar-perfil main, .Pag-mudar-senha main{
         width: 100%;
         /* essa bomba aqui para n ficar branco quando o conteúdo não chegar até o fim da página */
         min-height: fit-content;
@@ -19,14 +19,14 @@ const Perfil_style = createGlobalStyle `
         align-items: center;
     }
 
-    .section-perfil {
+    .section-perfil, .section-mudar-senha {
         display: flex;
         flex-direction: column;
         gap: 35px;
         align-items: center;
     }
 
-    .perfil-infos {
+    .perfil-infos, .section-mudar-senha {
         background-color: #232323;
         color: white;
         display: flex;
@@ -48,8 +48,12 @@ const Perfil_style = createGlobalStyle `
     .btn-card,
     .form-edit-perfil div label,
     .form-edit-perfil div input,
+    .form-mudar-senha div label,
+    .form-mudar-senha div input,
     .div-btns-form-edit button,
-    .div-btns-form-edit a, {
+    .div-btns-form-edit a,
+    .div-buttons-edit-perfil a,
+    .div-buttons-edit-perfil button {
         font-family: "Michroma", serif;
         font-weight: 400;
     }
@@ -160,7 +164,7 @@ const Perfil_style = createGlobalStyle `
         margin-top: 10px;
         cursor: pointer;
         transition: color 0.3s, background-color 0.3s;
-        width: 5vw;
+        width: 8vw;
         text-align: center;
         font-weight: 400;
     }
@@ -176,24 +180,27 @@ const Perfil_style = createGlobalStyle `
         gap: 10px
     }
 
-    .form-edit-perfil {
+    .form-edit-perfil, .form-mudar-senha {
         display: flex;
         flex-direction: column;
         gap: 10px;
         width: 60%;
     }
 
-    .form-edit-perfil div:not(.div-btns-form-edit, .div-select div) {
+    .form-edit-perfil div:not(.div-btns-form-edit, .div-select div),
+    .form-mudar-senha div:not(.div-buttons-edit-perfil) {
         display: flex;
         flex-direction: column;
         gap: 5px;
     }
 
-    .form-edit-perfil div label {
+    .form-edit-perfil div label,
+    .form-mudar-senha div label {
         font-size: 1.25vw;
     }
 
-    .form-edit-perfil div input:not(.div-select input) {
+    .form-edit-perfil div input:not(.div-select input),
+    .form-mudar-senha div input {
         padding: 7.5px;
         outline: none;
         border: none;
@@ -202,17 +209,25 @@ const Perfil_style = createGlobalStyle `
         height: 38px;
     }
 
-    .form-edit-perfil div input:not(.div-select input):focus {
+    .form-mudar-senha div input:disabled {
+        background-color: white;
+        cursor: not-allowed;
+    }
+
+    .form-edit-perfil div input:not(.div-select input):focus,
+    .form-mudar-senha div input:focus {
         box-shadow: 0 0 0 1.5px #C47D69;
     }
 
-    .div-btns-form-edit {
+    .div-btns-form-edit,
+    .div-buttons-edit-perfil {
         display: inline-flex;
         justify-content: space-between;
         margin-top: 15px;
     }
 
-    .div-btns-form-edit button, .div-btns-form-edit a {
+    .div-btns-form-edit button, .div-btns-form-edit a,
+    .div-buttons-edit-perfil button, .div-buttons-edit-perfil a {
         background-color: black;
         color: white;
         border: none;
@@ -226,8 +241,30 @@ const Perfil_style = createGlobalStyle `
     }
 
     .div-btns-form-edit button:hover,
-    .div-btns-form-edit a:hover {
+    .div-btns-form-edit a:hover,
+    .div-buttons-edit-perfil button:hover,
+    .div-buttons-edit-perfil a:hover {
         border: 1px solid white;
+    }
+
+    .div-password {
+        position: relative;
+    }
+
+    .btn-show-passw {
+        position: absolute;
+        padding: 0;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        bottom: 7%;
+        right: 1%;
+        font-size: 17.5px;
+        cursor: pointer;
+    }
+
+    .btn-confirm-nova-senha:disabled {
+        cursor: not-allowed;
     }
 
     @media (min-width: 1500px) {
@@ -255,15 +292,18 @@ const Perfil_style = createGlobalStyle `
             font-size: 1.20vw ;
         }
         
-        .form-edit-perfil {
+        .form-edit-perfil,
+        .form-mudar-senha {
             width: 50%;
         }
 
-        .form-edit-perfil div label {
+        .form-edit-perfil div label,
+        .form-mudar-senha div label {
             font-size: 1vw;
         }
 
-        .form-edit-perfil div input {
+        .form-edit-perfil div input,
+        .form-mudar-senha div input {
             font-size: 0.75vw !important;
         }
 

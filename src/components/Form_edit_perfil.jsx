@@ -14,8 +14,6 @@ const Form_edit_perfil = () => {
     const { user, loading } = useAuth();
     const [userName, setUserName] = useState("");
     const [telefone, setTelefone] = useState("");
-    const [uploading, setUploading] = useState(false);
-    const [imageUrl, setImageUrl] = useState(null);
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 

@@ -16,6 +16,7 @@ import Perfil from './routes/Perfil.jsx'
 import '../src/styles/fonts.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Editar_perfil from './routes/Editar_perfil.jsx'
+import Mudar_senha from './routes/Mudar_senha.jsx'
 
 
 const routes = createBrowserRouter([
@@ -83,6 +84,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Perfil /> 
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/perfil/mudar-senha",
+        element: (
+          <ProtectedRoute>
+            <Mudar_senha /> 
           </ProtectedRoute>
         )
       },
