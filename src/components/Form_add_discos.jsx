@@ -5,6 +5,7 @@ import { addDoc, collection } from 'firebase/firestore'
 import { db } from '../firebase-config'
 import Swal from 'sweetalert2'
 import { useAuth } from '../AuthContext'
+import { useQueryClient } from '@tanstack/react-query'
 
 const Tamanhos = [
     { value: 12, label: 12 },
@@ -71,6 +72,7 @@ const Form_add_discos = () => {
     const [tipo, setTipo] = useState(null);
     const [encarte, setEncarte] = useState(null);
     const [observacoes, setObservacoes] = useState("");
+    const queryClient = useQueryClient();
 
     // pegando as infos do usuario
     const { user, loading } = useAuth();
@@ -133,6 +135,8 @@ const Form_add_discos = () => {
                     setTipo(null);
                     setEncarte(null);
                     setObservacoes("")
+
+                    queryClient.invalidateQueries(['countDisks', user.uid]);
                 })
             } catch(error) {
                 Swal.fire({
