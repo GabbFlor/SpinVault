@@ -17,6 +17,7 @@ import '../src/styles/fonts.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Editar_perfil from './routes/Editar_perfil.jsx'
 import Mudar_senha from './routes/Mudar_senha.jsx'
+import Error_page from './routes/ErrorPage.jsx'
 
 
 const routes = createBrowserRouter([
@@ -25,7 +26,7 @@ const routes = createBrowserRouter([
 
     element: <App />,
 
-    // errorElement
+    errorElement: <Error_page />,
 
     children: [
       // rotas publicas (podem ser acessadas por qualquer um)
