@@ -18,6 +18,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Editar_perfil from './routes/Editar_perfil.jsx'
 import Mudar_senha from './routes/Mudar_senha.jsx'
 import Error_page from './routes/ErrorPage.jsx'
+import Relacao_discos from './routes/Relacao-discos.jsx'
 
 
 const routes = createBrowserRouter([
@@ -93,6 +94,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Mudar_senha /> 
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/relacao/:argumento",
+        element: (
+          <ProtectedRoute>
+            <Relacao_discos /> 
           </ProtectedRoute>
         )
       },
