@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import Error_img from '../assets/favicon.png'
-import '../styles/Error_page_style.css'
+import Error_page_style from '../styles/Error_page_style';
 
 const Error_page = () => {
     return (
         <div className="Pag-error">
+            <Error_page_style />
+
             <img src={Error_img} alt="Logo" />
 
             <section>
