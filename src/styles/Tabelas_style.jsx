@@ -33,7 +33,7 @@ const Tabelas_style = createGlobalStyle `
         gap: 15px;
     }
 
-    .nav-classificacoes div a {
+    .nav-classificacoes div a, .btn-carregar {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -49,12 +49,16 @@ const Tabelas_style = createGlobalStyle `
         transition: border, 0.3s;
     }
 
-    .nav-classificacoes div a:hover {
+    .btn-carregar {
+        width: fit-content;
+        margin-top: 25px
+    }
+
+    .nav-classificacoes div a:hover, .btn-carregar:hover {
         border: 2px solid white;
         transition: border, 0.3s;
         background-color: #aa6b5a;
     }
-
 
     /* estilizacao da tabela */
     .Pag-relacao-discos table {
@@ -62,6 +66,12 @@ const Tabelas_style = createGlobalStyle `
         width: 100%;
         /* border: 1px solid white; */
         border-radius: 15px;
+    }
+
+    .div-da-table {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
     }
 
     .cell-title th {
@@ -95,8 +105,17 @@ const Tabelas_style = createGlobalStyle `
         font-size: 1.05vw;
     }
 
+    .carregamento {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        // background-color: red;
+        width: 100%;
+        height: 50px;
+    }
+
     @media (min-width: 1500px) {
-        .nav-classificacoes div a {
+        .nav-classificacoes div a, .btn-carregar {
             font-size: 1vw;
         }
 

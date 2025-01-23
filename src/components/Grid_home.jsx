@@ -18,19 +18,19 @@ const Grid_home = () => {
             {/* relacao completa */}
             <div className="item-grid">
                 <img src={ImgGrid2} alt="img2" />
-                <Link to={`/relacao/completa`}>Clique aqui!</Link>
+                <Link to={`/relacao/titulo-album`}>Clique aqui!</Link>
             </div>
 
             {/* discos nacionais */}
             <div className="item-grid">
                 <img src={ImgGrid3} alt="img3" />
-                <Link to={`relacao/discos-nacionais`}>Clique aqui!</Link>
+                <Link to={`relacao-especifica/discos-nacionais`}>Clique aqui!</Link>
             </div>
 
             {/* discos internacionais */}
             <div className="item-grid">
                 <img src={ImgGrid4} alt="img4" />
-                <Link to={`relacao/discos-internacionais`}>Clique aquo!</Link>
+                <Link to={`relacao-especifica/discos-internacionais`}>Clique aqui!</Link>
             </div>
 
             {/* infos gerais */}
@@ -42,7 +42,7 @@ const Grid_home = () => {
             {/* busca inteligente */}
             <div className="item-grid">
                 <img src={ImgGrid6} alt="img6" />
-                <Link to={`relacao/busca-inteligente`}>Clique aqui!</Link>
+                <Link to={`relacao-especifica/busca-inteligente`}>Clique aqui!</Link>
             </div>
         </section>
     )

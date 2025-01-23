@@ -15,28 +15,31 @@ const Relacao_discos = () => {
             <main>
                 <nav className="nav-classificacoes">
                     <div>
-                        <Link to={'/'}>MENU</Link>
+                        <Link to={'/'}>HOME</Link>
                     </div>
 
                     <div>
-                        <Link to={'/'}>Classificar <br />Artista</Link>
+                        <Link to={'/relacao/artista'} title="Nome do artista (A - Z)">Classificar <br />Artista</Link>
 
-                        <Link to={'/'}>Classificar <br />Titulo</Link>
+                        <Link to={'/relacao/titulo-album'} title="Titulo do album (A - Z)">Classificar <br />Titulo</Link>
 
-                        <Link to={'/'}>Classificar <br />Ano (p)</Link>
+                        <Link to={'/relacao/ano'}  title="Ano (mais atual primeiro)">Classificar <br />Ano (p)</Link>
 
-                        <Link to={'/'}>Classificar <br />Nac/Inter</Link>
+                        <Link to={'/relacao/origem-disco'} title="Internacionais primeiro">Classificar <br />Inter/Nac</Link>
                     </div>
                 </nav>
 
-                {argumento == "completa" ? (
-                    <Relacao_completa />
-                ) : argumento == "discos-nacionais" ? (
-                    "Discos nacionais aqui!"
-                ) : argumento == "discos-internacionais" ? (
-                    "Discos internacionais aqui!"
-                ) : argumento == "busca-inteligente"? (
-                    "Busca inteligente aqui"
+                {argumento == "titulo-album" ? (
+                    <Relacao_completa consulta={"Titulo_album"} />
+                ) : argumento == "origem-disco" ? (
+                    // ARRUMAR ESSA BOMBA DPS
+                    <Relacao_completa consulta={"Origem_disco"} />
+                ) : argumento == "artista" ? (
+                    <Relacao_completa consulta={"Nome_artista"}/>
+                ) : argumento == "ano" ? (
+                    <Relacao_completa consulta={"Ano"}/>
+                ) : argumento == "busca-inteligente" ? (
+                    <Relacao_completa consulta={"busca-inteligente"} />
                 ) : (
                     "Argumento desconhecido, mandar para a pag de erro aqui"
                 )}

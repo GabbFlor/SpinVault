@@ -20,8 +20,8 @@ const Origem_artista = [
 ]
 
 const Origem_disco = [
+    { value: "internacional", label: "Internacional" },
     { value: "nacional", label: "Nacional" },
-    { value: "importado", label: "Importado" },
 ]
 
 const Situacao_disco = [
@@ -63,7 +63,7 @@ const Form_add_discos = () => {
     const [nomeArtista, setNomeArtista] = useState("");
     const [tituloAlbum, setTituloAlbum] = useState("");
     const [tamanhoDisco, setTamanhoDisco] = useState(null);
-    const [anoDisco, setAnoDisco] = useState("");
+    const [anoDisco, setAnoDisco] = useState(0);
     const [origemArtista, setOrigemArtista] = useState(null);
     const [origemDisco, setOrigemDisco] = useState(null);
     const [situacaoDisco, setSituacaoDisco] = useState(null);
@@ -102,7 +102,7 @@ const Form_add_discos = () => {
                     Nome_artista: nomeArtista,
                     Titulo_album: tituloAlbum,
                     Tamanho: tamanhoDisco,
-                    Ano: anoDisco,
+                    Ano: Number(anoDisco),
                     Origem_artista: origemArtista,
                     Origem_disco: origemDisco,
                     Situacao_disco: situacaoDisco,
@@ -126,7 +126,7 @@ const Form_add_discos = () => {
                     setNomeArtista("");
                     setTituloAlbum("");
                     setTamanhoDisco(null);
-                    setAnoDisco("")
+                    setAnoDisco(0)
                     setOrigemArtista(null)
                     setOrigemDisco(null);
                     setSituacaoDisco(null);
