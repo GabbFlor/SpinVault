@@ -3,82 +3,149 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../AuthContext";
 import { db } from "../firebase-config";
 import { dotWave } from "ldrs";
+import { useQueryClient, useQuery } from '@tanstack/react-query'
 
 const Relacao_completa = ({ consulta }) => {
-    const [discos, setDiscos] = useState([]);
-    const [ultimoDoc, setUltimoDoc] = useState(null);
     const [carregando, setCarregando] = useState(false);
     const { user, loading } = useAuth();
     const [ sumirBtn, setSumirBtn] = useState(false);
+    const queryClient = useQueryClient();
+    let q;
     dotWave.register();
 
-    let q;
     const pegarDadosIniciais = async () => {
+        if(!user || !user.uid) {
+            console.warn(`Usuário não está pronto ainda!`);
+            return [];
+        }
+
         setCarregando(true);
 
         try {
-            if (consulta == "Ano") {
-                q = query(
-                    collection(db, "Discos"),
-                    where("User_id", "==", user.uid),
-                    orderBy(consulta, "desc"),
-                    limit(20)
-                );
-            } else {
-                q = query(
-                    collection(db, "Discos"),
-                    where("User_id", "==", user.uid),
-                    orderBy(consulta),
-                    limit(20)
-                );
-            }
+            q = query(
+                collection(db, "Discos"),
+                where("User_id", "==", user.uid),
+                orderBy("Titulo_album"),
+                limit(20)
+            );
 
             const querySnapshot = await getDocs(q);
-            const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-            setDiscos(data);
-            setUltimoDoc(querySnapshot.docs[querySnapshot.docs.length - 1]);
-            // console.log("dados recuperados com sucesso!")
+            const discos = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+            // Armazena o ultimoDoc no cache para ele permanecer mesmo dps de trocar de rota
+            queryClient.setQueryData(['ultimoDoc'], querySnapshot.docs[querySnapshot.docs.length - 1]);
+
+            console.log("dados recuperados com sucesso!")
+            return discos;
         } catch (error) {
             console.error(`Erro ao buscar dados: ${error}`);
+            throw error;
+        } finally {
+            setCarregando(false)
         }
-        setCarregando(false);
     };
 
-    const carregarProximaPagina = async () => {
-        if (!ultimoDoc) return;
-        
-        setCarregando(true);
+    // executa a query e armazena os discos no cache
+    const { data: discos, isLoading, error } = useQuery({
+        queryKey: ['discos'],
+        queryFn: pegarDadosIniciais,
+        enabled: !!user?.uid,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+    })
 
+    const carregarProximaPagina = async () => {
+        // Acessa o ultimoDocCache do cache antes de qualquer verificação
+        const ultimoDocCache = queryClient.getQueryData(['ultimoDoc']);
+    
+        // impede que o resto do comando seja executado se o ultimoDocCache ainda não estiver disponível
+        if (!ultimoDocCache) {
+            console.log("Último documento não encontrado. Não há mais dados para carregar.");
+            return;
+        }
+    
+        setCarregando(true);
+    
         try {
             const q = query(
                 collection(db, "Discos"),
                 where("User_id", "==", user.uid),
                 orderBy("Titulo_album"),
-                startAfter(ultimoDoc),
+                startAfter(ultimoDocCache),
                 limit(20)
-            )
-
+            );
+    
             const querySnapshot = await getDocs(q);
-            const data = querySnapshot.docs.map((doc) =>({ id: doc.id, ...doc.data() }));
-
+            const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    
             if (data.length === 0) {
-                alert(`Não há mais nenhum conteúdo para ser carregado.`)
-                setSumirBtn(true)
+                alert("Não há mais nenhum conteúdo para ser carregado.");
+                setSumirBtn(true);
             } else {
-                setDiscos((prevDiscos => [...prevDiscos, ...data]));
-                setUltimoDoc(querySnapshot.docs[querySnapshot.docs.length - 1]);
+                // Atualiza o cache com os novos discos
+                queryClient.setQueryData(['discos'], (oldDiscos = []) => {
+                    // aqui filtramos tirando os discos com o id já existente (evitar conflitos)
+                    const IDsExistentes = new Set(oldDiscos.map((disco) => disco.id));
+                    const discosFiltrados = data.filter((disco) => !IDsExistentes.has(disco.id));
+                    return [...oldDiscos, ...discosFiltrados];
+                });
+    
+                // Atualiza o ultimoDoc no cache para persistência
+                queryClient.setQueryData(['ultimoDoc'], querySnapshot.docs[querySnapshot.docs.length - 1]);
+
             }
-        } catch(error) {
-            console.error(`Erro ao os dados da proxima pagina: ${error}`);
+        } catch (error) {
+            console.error("Erro ao carregar dados da próxima página:", error);
+        } finally {
+            setCarregando(false);
         }
-        setCarregando(false);
+    };
+
+    const handleUpdate = () => {
+        queryClient.invalidateQueries(['discos']);
+        queryClient.invalidateQueries(['ultimoDoc']);
+        setSumirBtn(false)
     }
 
+    // codigo para reogranizar as infos da tabela pelo parametro da url
     useEffect(() => {
-        pegarDadosIniciais();
+        if (consulta === "Nome_artista") {
+            queryClient.setQueryData(['discos'], (oldData = []) => {
+                return [...oldData].sort((a, b) => {
+                    return a.Nome_artista.localeCompare(b.Nome_artista);
+                });
+            });
+        }
+    
+        if (consulta === "Titulo_album") {
+            queryClient.setQueryData(['discos'], (oldData = []) => {
+                return [...oldData].sort((a, b) => {
+                    return a.Titulo_album.localeCompare(b.Titulo_album);
+                });
+            });
+        }
+    
+        if (consulta === "Origem_disco") {
+            queryClient.setQueryData(['discos'], (oldData = []) => {
+                return [...oldData].sort((a, b) => {
+                    return a.Origem_disco.localeCompare(b.Origem_disco);
+                });
+            });
+        }
+    
+        if (consulta === "Ano") {
+            queryClient.setQueryData(['discos'], (oldData = []) => {
+                return [...oldData].sort((a, b) => {
+                    return b.Ano - a.Ano; // Ordenação decrescente por Ano
+                });
+            });
+        }
+    }, [consulta]);    
 
-        console.log(consulta)
-    }, [consulta])
+
+    if (isLoading) return <p>Carregando...</p>;
+
+    if (error) return <p>Erro: {error.message}</p>;
 
     return (
         <div className="div-da-table">
@@ -132,9 +199,13 @@ const Relacao_completa = ({ consulta }) => {
                 </tbody>
             </table>
             
-            {!carregando && ultimoDoc && sumirBtn == false && (
-                <button onClick={carregarProximaPagina} className="btn-carregar">Carregar mais</button>
-            )}
+            <div className="div-btns">
+                <button onClick={handleUpdate} className="btn-carregar">Atualizar</button>
+
+                {sumirBtn == false ? (
+                    <button onClick={carregarProximaPagina} className="btn-carregar">Carregar mais</button>
+                ) : ("")}
+            </div>
 
             {carregando && (
                 <div className="carregamento">

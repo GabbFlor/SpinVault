@@ -51,7 +51,13 @@ const Tabelas_style = createGlobalStyle `
 
     .btn-carregar {
         width: fit-content;
-        margin-top: 25px
+        margin-top: 25px;
+        cursor: pointer;
+    }
+
+    .div-btns {
+        display: inline-flex;
+        gap: 15px
     }
 
     .nav-classificacoes div a:hover, .btn-carregar:hover {
