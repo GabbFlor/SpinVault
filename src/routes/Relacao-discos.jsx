@@ -1,10 +1,18 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Relacao_completa from "../components/Relacao_completa";
 import Tabelas_style from "../styles/Tabelas_style";
+import { useEffect } from "react";
 
 const Relacao_discos = () => {
     const { argumento } = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(argumento != "titulo-album" && argumento != "origem-disco" && argumento != "artista" && argumento != "ano" && argumento != "busca-inteligente") {
+            navigate(`/error-not-found`)
+        }
+    })
 
     return(
         <div className="Pag-relacao-discos">
@@ -32,16 +40,13 @@ const Relacao_discos = () => {
                 {argumento == "titulo-album" ? (
                     <Relacao_completa consulta={"Titulo_album"} />
                 ) : argumento == "origem-disco" ? (
-                    // ARRUMAR ESSA BOMBA DPS
                     <Relacao_completa consulta={"Origem_disco"} />
                 ) : argumento == "artista" ? (
                     <Relacao_completa consulta={"Nome_artista"}/>
                 ) : argumento == "ano" ? (
                     <Relacao_completa consulta={"Ano"}/>
-                ) : argumento == "busca-inteligente" ? (
-                    <Relacao_completa consulta={"busca-inteligente"} />
                 ) : (
-                    "Argumento desconhecido, mandar para a pag de erro aqui"
+                    <Relacao_completa consulta={"busca-inteligente"} />
                 )}
             </main>
         </div>

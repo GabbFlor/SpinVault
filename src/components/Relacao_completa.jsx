@@ -35,7 +35,7 @@ const Relacao_completa = ({ consulta }) => {
             // Armazena o ultimoDoc no cache para ele permanecer mesmo dps de trocar de rota
             queryClient.setQueryData(['ultimoDoc'], querySnapshot.docs[querySnapshot.docs.length - 1]);
 
-            console.log("dados recuperados com sucesso!")
+            // console.log("dados recuperados com sucesso!")
             return discos;
         } catch (error) {
             console.error(`Erro ao buscar dados: ${error}`);

@@ -19,6 +19,7 @@ import Editar_perfil from './routes/Editar_perfil.jsx'
 import Mudar_senha from './routes/Mudar_senha.jsx'
 import Error_page from './routes/ErrorPage.jsx'
 import Relacao_discos from './routes/Relacao-discos.jsx'
+import Relacao_especifica from './routes/Relacao_especifica.jsx'
 
 
 const routes = createBrowserRouter([
@@ -102,6 +103,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Relacao_discos /> 
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/relacao-especifica/:argumento",
+        element: (
+          <ProtectedRoute>
+            <Relacao_especifica /> 
           </ProtectedRoute>
         )
       },

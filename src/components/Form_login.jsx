@@ -93,7 +93,7 @@ const Form_login = () => {
                 className="btn-submit-registro"
                 disabled={email == "" || password == ""}
                 >
-                    Criar conta!
+                    Entrar!
             </button>
             <label>Não tem uma conta? <Link to={'/auth/registro'}>Crie aqui!</Link></label>
         </form>
