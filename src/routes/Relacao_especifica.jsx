@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import { useEffect } from "react";
+import Tabelas_style from "../styles/Tabelas_style";
+import Relacao_nacionais_e_internacionais from "../components/Relacao_nacionais_e_internacionais";
 
 const Relacao_especifica = () => {
     const { argumento } = useParams();
@@ -13,17 +15,13 @@ const Relacao_especifica = () => {
     })
 
     return (
-        <div className="div-Relacao_especifica">
-            {/* Style aqui */}
+        <div className="Pag-relacao-especifica Pag-relacao-discos">
+            <Tabelas_style />
 
             <Header />
 
             <main>
-                {argumento == "discos-nacionais" ? (
-                    <h1>Apenas discos NACIONAIS aqui!</h1>
-                ) : (
-                    <h1>Apenas discos INTERNACIONAIS aqui!</h1>
-                )}
+                <Relacao_nacionais_e_internacionais consulta={argumento} />
             </main>
         </div>
     )
