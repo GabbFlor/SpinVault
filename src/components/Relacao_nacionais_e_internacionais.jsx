@@ -138,9 +138,9 @@ const Relacao_nacionais_e_internacionais = ({ consulta }) => {
                 <thead>
                     <tr className="cell-title">
                         <th colSpan="12">{consulta == "discos-nacionais" ? (
-                            "Apenas discos nacionais"
+                            "Discos nacionais"
                         ) : (
-                            "Apenas discos internacionais"
+                            "Discos internacionais"
                         )}</th>
                     </tr>
                     <tr className="cabecalho">
