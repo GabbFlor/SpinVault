@@ -1,5 +1,5 @@
 import { getFirestore, collection, query, orderBy, limit, startAfter, where, getDocs } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../AuthContext";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { dotWave } from "ldrs";
@@ -9,125 +9,126 @@ const Relacao_nacionais_e_internacionais = ({ consulta }) => {
     const [carregando, setCarregando] = useState(false);
     const { user, loading } = useAuth();
     const [ sumirBtn, setSumirBtn] = useState(false);
+    const [discosFiltrados, setDiscosFiltrados] = useState([]);
     const queryClient = useQueryClient();
     let q;
     dotWave.register();
 
     const pegarDadosIniciais = async () => {
         if(!user || !user.uid) {
-            console .warn(`Usuário não está pronto ainda!`);
-            return[];
-        }
-
-        setCarregando(true);
-
-        try{
-            if(consulta == "discos-nacionais") {
-                q = query(
-                    collection(db, "Discos"),
-                    where("User_id", "==", user.uid),
-                    where("Origem_disco", "==", "nacional"),
-                    orderBy("Titulo_album"),
-                    limit(20)
-                );
-            } else if (consulta == "discos-internacionais") {
-                q = query(
-                    collection(db, "Discos"),
-                    where("User_id", "==", user.uid),
-                    where("Origem_disco", "==", "internacional"),
-                    orderBy("Titulo_album"),
-                    limit(20)
-                );
-            } else {
-                console.error("Arumento inválido para query.");
-            }
-
-            const querySnapshot = await getDocs(q);
-            const discosInterAndNac = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
-            queryClient.setQueryData([`ultimoDocDiscosNacAndInterN`], querySnapshot.docs[querySnapshot.docs.length - 1]);
-
-            console.log("Dados recuperados com sucesso!");
-
-            return discosInterAndNac;
-        } catch(error) {
-            console.error(`Erro ao buscar dados: ${error}`);
-            throw error;
-        } finally {
-            setCarregando(false);
-        }
-    };
-
-    const carregarProximaPagina = async () => {
-        const ultimoDocCache = queryClient.getQueryData(['ultimoDocDiscosNacAndInterN']);
-
-        if (!ultimoDocCache) {
-            console.log("Ultimo documento não encontrado, não há mais nada para carregar.");
-            return;
+            console.warn(`Usuário não está pronto ainda!`);
+            return [];
         }
 
         setCarregando(true);
 
         try {
-            if(consulta == "discos-nacionais") {
-                q = query(
-                    collection(db, "Discos"),
-                    where("User_id", "==", user.uid),
-                    where("Origem_disco", "==", "nacional"),
-                    orderBy("Titulo_album"),
-                    startAfter(ultimoDocCache),
-                    limit(20)
-                );
-            } else if (consulta == "discos-internacionais") {
-                q = query(
-                    collection(db, "Discos"),
-                    where("User_id", "==", user.uid),
-                    where("Origem_disco", "==", "internacional"),
-                    orderBy("Titulo_album"),
-                    startAfter(ultimoDocCache),
-                    limit(20)
-                );
-            } else {
-                console.error("Arumento inválido para query.");
-            }
+            q = query(
+                collection(db, "Discos"),
+                where("User_id", "==", user.uid),
+                orderBy("Titulo_album"),
+                limit(20)
+            );
 
             const querySnapshot = await getDocs(q);
-            const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+            const discos = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
+            // Armazena o ultimoDoc no cache para ele permanecer mesmo dps de trocar de rota
+            queryClient.setQueryData(['ultimoDoc'], querySnapshot.docs[querySnapshot.docs.length - 1]);
+
+            // console.log("dados recuperados com sucesso!")
+            return discos;
+        } catch (error) {
+            console.error(`Erro ao buscar dados: ${error}`);
+            throw error;
+        } finally {
+            setCarregando(false)
+        }
+    };
+
+    const carregarProximaPagina = async () => {
+        // Acessa o ultimoDocCache do cache antes de qualquer verificação
+        const ultimoDocCache = queryClient.getQueryData(['ultimoDoc']);
+    
+        // impede que o resto do comando seja executado se o ultimoDocCache ainda não estiver disponível
+        if (!ultimoDocCache) {
+            console.log("Último documento não encontrado. Não há mais dados para carregar.");
+            return;
+        }
+    
+        setCarregando(true);
+    
+        try {
+            const q = query(
+                collection(db, "Discos"),
+                where("User_id", "==", user.uid),
+                orderBy("Titulo_album"),
+                startAfter(ultimoDocCache),
+                limit(20)
+            );
+    
+            const querySnapshot = await getDocs(q);
+            const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    
             if (data.length === 0) {
                 alert("Não há mais nenhum conteúdo para ser carregado.");
                 setSumirBtn(true);
             } else {
-                queryClient.setQueryData(['discosInterAndNac'], (oldDiscos = []) => {
+                // Atualiza o cache com os novos discos
+                queryClient.setQueryData(['discos'], (oldDiscos = []) => {
+                    // aqui filtramos tirando os discos com o id já existente (evitar conflitos)
                     const IDsExistentes = new Set(oldDiscos.map((disco) => disco.id));
-                    const discosFIltrados = data.filter((disco) => !IDsExistentes.has(disco.id));
-                    return [...oldDiscos, ...discosFIltrados];
-                })
+                    const discosFiltrados = data.filter((disco) => !IDsExistentes.has(disco.id));
+                    return [...oldDiscos, ...discosFiltrados];
+                });
+    
+                // Atualiza o ultimoDoc no cache para persistência
+                queryClient.setQueryData(['ultimoDoc'], querySnapshot.docs[querySnapshot.docs.length - 1]);
 
-                queryClient.setQueryData(['ultimoDocDiscosNacAndInterN'], querySnapshot.docs[querySnapshot.docs.length - 1]);
             }
-        }  catch (error) {
-            console.error(`Erro ao carregar os dados da próxima página: ${error}`);
+        } catch (error) {
+            console.error("Erro ao carregar dados da próxima página:", error);
         } finally {
             setCarregando(false);
         }
-    }
+    };
 
-    const { data: discosInterAndNac, isLoading, error } = useQuery({
-        queryKey: ['discosInterAndNac'],
+    // executa a query e armazena os discos no cache
+    const { data: discos, isLoading, error } = useQuery({
+        queryKey: ['discos'],
         queryFn: pegarDadosIniciais,
         enabled: !!user?.uid,
         refetchOnWindowFocus: false,
-        refetchOnMount: false
+        refetchOnMount: false,
     })
 
-    const handleUpdate= () => {
-        queryClient.invalidateQueries(['discosInterAndNac']);
-        queryClient.invalidateQueries(['ultimoDocDiscosNacAndInterN']);
+    const handleUpdate = () => {
+        queryClient.invalidateQueries(['discos']);
+        queryClient.invalidateQueries(['ultimoDoc']);
         setSumirBtn(false)
     }
 
-    if (isLoading) return <p>Carregando...</p>;
+    useEffect(() => {
+        if (!discos || discos.length === 0) return;
+    
+        if (consulta === "discos-nacionais") {
+            const filtrados = discos.filter(disco => disco.Origem_disco === "nacional");
+            setDiscosFiltrados(filtrados);
+        } else if (consulta === "discos-internacionais") {
+            const filtrados = discos.filter(disco => disco.Origem_disco === "internacional");
+            setDiscosFiltrados(filtrados);
+        }
+    }, [consulta, discos]);
+    
+    
+
+    if (isLoading) return <div className="carregamento">
+                            <l-dot-wave
+                                size="60"
+                                speed="1" 
+                                color="white" 
+                            ></l-dot-wave>
+                        </div>;
 
     if (error) return <p>Erro: {error.message}</p>;
 
@@ -158,20 +159,20 @@ const Relacao_nacionais_e_internacionais = ({ consulta }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {discosInterAndNac.map((discoInterAndNac) => (
-                        <tr key={discoInterAndNac.id}>
-                            <td>{discoInterAndNac.Nome_artista}</td>
-                            <td>{discoInterAndNac.Titulo_album}</td>
-                            <td>{discoInterAndNac.Tamanho}</td>
-                            <td>{discoInterAndNac.Ano}</td>
-                            <td>{discoInterAndNac.Origem_artista}</td>
-                            <td>{discoInterAndNac.Origem_disco}</td>
-                            <td>{discoInterAndNac.Situacao_disco}</td>
-                            <td>{discoInterAndNac.Situacao_capa}</td>
-                            <td>{discoInterAndNac.Estilo}</td>
-                            <td>{discoInterAndNac.Tipo}</td>
-                            <td>{discoInterAndNac.Encarte}</td>
-                            <td>{discoInterAndNac.Observacoes}</td>
+                    {discosFiltrados.map((discoFiltrado) => (
+                        <tr key={discoFiltrado.id}>
+                            <td>{discoFiltrado.Nome_artista}</td>
+                            <td>{discoFiltrado.Titulo_album}</td>
+                            <td>{discoFiltrado.Tamanho}</td>
+                            <td>{discoFiltrado.Ano}</td>
+                            <td>{discoFiltrado.Origem_artista}</td>
+                            <td>{discoFiltrado.Origem_disco}</td>
+                            <td>{discoFiltrado.Situacao_disco}</td>
+                            <td>{discoFiltrado.Situacao_capa}</td>
+                            <td>{discoFiltrado.Estilo}</td>
+                            <td>{discoFiltrado.Tipo}</td>
+                            <td>{discoFiltrado.Encarte}</td>
+                            <td>{discoFiltrado.Observacoes}</td>
                         </tr>
                     ))}
                 </tbody>
