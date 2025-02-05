@@ -2,7 +2,7 @@ import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase-config'
 import { useAuth } from '../AuthContext';
 import { doc, getDoc } from 'firebase/firestore';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { tailChase } from 'ldrs';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 const Perfil_logado = () => {
     const { user, loading } = useAuth();
     const [ diferencaData, setDiferencaData ] = useState(0);
+    const queryClient = useQueryClient();
     tailChase.register()
 
     // função para pegar o perfil do usuario logado
@@ -87,6 +88,9 @@ const Perfil_logado = () => {
         })
         .then(async(result) => {
             if (result.isConfirmed) {
+                // Remove qualquer cache relacionado a discos que tiver no navegador do usuário
+                queryClient.clear();
+
                 await signOut(auth);
             }
         })
