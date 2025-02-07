@@ -120,6 +120,34 @@ const Tabelas_style = createGlobalStyle `
         height: 50px;
     }
 
+    .form-pesquisar-artista {
+        display: inline-flex;
+        position: relative;
+    }
+
+    .form-pesquisar-artista input {
+        outline: none;
+        padding: 5px;
+        width: 20vw;
+        border-radius: 5px;
+        border: 2px solid black;
+    }
+
+    .form-pesquisar-artista input:focus {
+        border: 2px solid #c47d69;
+    }
+
+    .form-pesquisar-artista button {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        position: absolute;
+        right: 2.5%;
+        top: 20%;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
     @media (min-width: 1500px) {
         .nav-classificacoes div a, .btn-carregar {
             font-size: 1vw;

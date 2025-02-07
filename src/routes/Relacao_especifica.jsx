@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import { useEffect } from "react";
 import Tabelas_style from "../styles/Tabelas_style";
@@ -21,6 +21,14 @@ const Relacao_especifica = () => {
             <Header />
 
             <main>
+                <nav className="nav-classificacoes">
+                    <div>
+                        <Link to={'/'}>HOME</Link>
+                    </div>
+
+                    <div></div>
+                </nav>
+
                 <Relacao_nacionais_e_internacionais consulta={argumento} />
             </main>
         </div>

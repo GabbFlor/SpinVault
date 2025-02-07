@@ -42,7 +42,7 @@ const Grid_home = () => {
             {/* busca inteligente */}
             <div className="item-grid">
                 <img src={ImgGrid6} alt="img6" />
-                <Link to={`relacao-especifica/busca-inteligente`}>Clique aqui!</Link>
+                <Link to={`/busca-inteligente`}>Clique aqui!</Link>
             </div>
         </section>
     )

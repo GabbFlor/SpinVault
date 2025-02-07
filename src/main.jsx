@@ -20,6 +20,7 @@ import Mudar_senha from './routes/Mudar_senha.jsx'
 import Error_page from './routes/ErrorPage.jsx'
 import Relacao_discos from './routes/Relacao-discos.jsx'
 import Relacao_especifica from './routes/Relacao_especifica.jsx'
+import Relacao_busca_inteligente from './routes/Relacao_busca_inteligente.jsx'
 
 
 const routes = createBrowserRouter([
@@ -111,6 +112,22 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Relacao_especifica /> 
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/busca-inteligente",
+        element: (
+          <ProtectedRoute>
+            <Relacao_busca_inteligente /> 
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/busca-inteligente/:busca",
+        element: (
+          <ProtectedRoute>
+            <Relacao_busca_inteligente /> 
           </ProtectedRoute>
         )
       },
