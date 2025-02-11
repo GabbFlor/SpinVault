@@ -3,6 +3,7 @@ import { useAuth } from "../AuthContext";
 import { dotWave } from "ldrs";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
+import { Link } from "react-router-dom";
 
 const Relacao_pesquisa = ({ busca }) => {
     const [carregando, setCarregando] = useState(false);
@@ -51,7 +52,7 @@ const Relacao_pesquisa = ({ busca }) => {
             <table>
             <thead>
                     <tr className="cell-title">
-                        <th colSpan="12">Pesquisa inteligente</th>
+                        <th colSpan="13">Pesquisa inteligente</th>
                     </tr>
                     <tr className="cabecalho">
                         <th>Artista</th>
@@ -66,6 +67,7 @@ const Relacao_pesquisa = ({ busca }) => {
                         <th>Tipo</th>
                         <th>Encarte</th>
                         <th>Obs.</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,16 +87,17 @@ const Relacao_pesquisa = ({ busca }) => {
                                 <td>{disco.Tipo}</td>
                                 <td>{disco.Encarte}</td>
                                 <td>{disco.Observacoes}</td>
+                                <td><Link to={`/editar-disco/${disco.id}`}>Editar</Link></td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="12">Nenhum restuldado com "{busca}" foi encontrado. Certifique-se de que o nome do artista seja <span style={{ color: "red" }}>exatamente</span> igual ao que foi adicionado.</td>
+                            <td colSpan="13">Nenhum restuldado com "{busca}" foi encontrado. Certifique-se de que o nome do artista seja <span style={{ color: "red" }}>exatamente</span> igual ao que foi adicionado.</td>
                         </tr>
                     )
                 ) : (
                     <tr>
-                        <td colSpan="12">Aguargando pesquisa...</td>
+                        <td colSpan="13">Aguargando pesquisa...</td>
                     </tr>
                 )}
                 </tbody>

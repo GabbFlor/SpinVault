@@ -4,6 +4,7 @@ import { useAuth } from "../AuthContext";
 import { db } from "../firebase-config";
 import { dotWave } from "ldrs";
 import { useQueryClient, useQuery } from '@tanstack/react-query'
+import { Link } from "react-router-dom";
 
 const Relacao_completa = ({ consulta }) => {
     const [carregando, setCarregando] = useState(false);
@@ -152,7 +153,7 @@ const Relacao_completa = ({ consulta }) => {
             <table>
                 <thead>
                     <tr className="cell-title">
-                        <th colSpan="12">Relação completa de discos 
+                        <th colSpan="13">Relação completa de discos 
                             {consulta == "Titulo_album" ? (
                                 " (Titulo)"
                             ) : consulta == "Origem_disco" ? (
@@ -177,6 +178,7 @@ const Relacao_completa = ({ consulta }) => {
                         <th>Tipo</th>
                         <th>Encarte</th>
                         <th>Obs.</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -194,6 +196,7 @@ const Relacao_completa = ({ consulta }) => {
                             <td>{disco.Tipo}</td>
                             <td>{disco.Encarte}</td>
                             <td>{disco.Observacoes}</td>
+                            <td><Link to={`/editar-disco/${disco.id}`}>Editar</Link></td>
                         </tr>
                     ))}
                 </tbody>

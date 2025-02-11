@@ -4,6 +4,7 @@ import { useAuth } from "../AuthContext";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { dotWave } from "ldrs";
 import { db } from "../firebase-config";
+import { Link } from "react-router-dom";
 
 const Relacao_nacionais_e_internacionais = ({ consulta }) => {
     const [carregando, setCarregando] = useState(false);
@@ -137,7 +138,7 @@ const Relacao_nacionais_e_internacionais = ({ consulta }) => {
             <table>
                 <thead>
                     <tr className="cell-title">
-                        <th colSpan="12">{consulta == "discos-nacionais" ? (
+                        <th colSpan="13">{consulta == "discos-nacionais" ? (
                             "Discos nacionais"
                         ) : (
                             "Discos internacionais"
@@ -156,6 +157,7 @@ const Relacao_nacionais_e_internacionais = ({ consulta }) => {
                         <th>Tipo</th>
                         <th>Encarte</th>
                         <th>Obs.</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -173,6 +175,7 @@ const Relacao_nacionais_e_internacionais = ({ consulta }) => {
                             <td>{discoFiltrado.Tipo}</td>
                             <td>{discoFiltrado.Encarte}</td>
                             <td>{discoFiltrado.Observacoes}</td>
+                            <td><Link to={`/editar-disco/${discoFiltrado.id}`}>Editar</Link></td>
                         </tr>
                     ))}
                 </tbody>

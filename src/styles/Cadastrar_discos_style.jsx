@@ -59,7 +59,7 @@ const Cadastrar_discos_style = createGlobalStyle `
         z-index: 0;
     }
 
-    .form-esquerda h1, .form-esquerda p {
+    .form-esquerda h1, .form-esquerda p, .form-esquerda a {
         font-family: "Michroma", sans-serif;
         font-weight: 400;
         position: relative;
@@ -71,6 +71,16 @@ const Cadastrar_discos_style = createGlobalStyle `
 
     .form-esquerda p {
         font-size: 1.05vw;
+    }
+
+    .form-esquerda a {
+        font-size: 1.25vw;
+        color: white;
+        margin-top: 50%;
+    }
+
+    .form-esquerda a:hover {
+        text-decoration: underline;
     }
 
     .form-direita {
@@ -126,6 +136,13 @@ const Cadastrar_discos_style = createGlobalStyle `
         color: #888;
     }
 
+    .div-buttons-form {
+        display: inline-flex;
+        justify-content: space-between;
+        width: 100%
+        
+    }
+
     .btn-submit-disk {
         background-color: #C47D69;
         color: black;
@@ -144,6 +161,15 @@ const Cadastrar_discos_style = createGlobalStyle `
         cursor: pointer;
         background-color: #da8c77;
         transition: 0.23 ease background-color;
+    }
+
+    .delete-disk {
+        background-color: #ff0000;
+        color: white;
+    }
+        
+    .delete-disk:hover {
+        background-color: #fc4c4c;
     }
 
     @media (min-width: 1500px) {

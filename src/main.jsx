@@ -21,6 +21,7 @@ import Error_page from './routes/ErrorPage.jsx'
 import Relacao_discos from './routes/Relacao-discos.jsx'
 import Relacao_especifica from './routes/Relacao_especifica.jsx'
 import Relacao_busca_inteligente from './routes/Relacao_busca_inteligente.jsx'
+import Editar_disco from './routes/Editar_disco.jsx'
 
 
 const routes = createBrowserRouter([
@@ -128,6 +129,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Relacao_busca_inteligente /> 
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/editar-disco/:id",
+        element: (
+          <ProtectedRoute>
+            <Editar_disco /> 
           </ProtectedRoute>
         )
       },

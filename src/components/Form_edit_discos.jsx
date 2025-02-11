@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import { useMediaQuery } from '@mui/material'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase-config'
 import Swal from 'sweetalert2'
 import { useAuth } from '../AuthContext'
 import { useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
+import { ring2 } from 'ldrs'
 
 const Tamanhos = [
     { value: 12, label: 12 },
@@ -59,7 +61,7 @@ const Encarte = [
     { value: "nao", label: "Não" },
 ]
 
-const Form_add_discos = () => {
+const Form_edit_discos = ({ id_disco }) => {
     const [nomeArtista, setNomeArtista] = useState("");
     const [tituloAlbum, setTituloAlbum] = useState("");
     const [tamanhoDisco, setTamanhoDisco] = useState(null);
@@ -73,74 +75,98 @@ const Form_add_discos = () => {
     const [encarte, setEncarte] = useState(null);
     const [observacoes, setObservacoes] = useState("");
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
+    const [ carregando, setCarregando ] = useState(false);
+    ring2.register()
+
 
     // pegando as infos do usuario
     const { user, loading } = useAuth();
 
     const HandleSubmit = async (e) => {
-        e.preventDefault();
+            e.preventDefault();
+        
+            if (nomeArtista !== "" && tituloAlbum !== "" && anoDisco !== "" && tamanhoDisco !== null && origemArtista !== null &&
+                origemDisco !== null && situacaoDisco !== null && situacaoCapa !== null && estilo !== null && tipo !== null && encarte !== null) {
+                
+                try {
+                    await updateDoc(doc(db, "Discos", id_disco), {
+                        User_id: user.uid,
+                        Nome_artista: nomeArtista,
+                        Titulo_album: tituloAlbum,
+                        Tamanho: tamanhoDisco,
+                        Ano: Number(anoDisco),
+                        Origem_artista: origemArtista,
+                        Origem_disco: origemDisco,
+                        Situacao_disco: situacaoDisco,
+                        Situacao_capa: situacaoCapa,
+                        Estilo: estilo,
+                        Tipo: tipo,
+                        Encarte: encarte,
+                        Observacoes: observacoes,
+                        Criado_em: new Date(),
+                    })
     
-        if (nomeArtista !== "" && tituloAlbum !== "" && anoDisco !== "" && tamanhoDisco !== null && origemArtista !== null &&
-            origemDisco !== null && situacaoDisco !== null && situacaoCapa !== null && estilo !== null && tipo !== null && encarte !== null) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Sucesso!",
+                        text: `O álbum ${tituloAlbum} foi editado com sucesso!`,
+                        timer: 1000,
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    })
+                    .then(() => {
+                        // limpa todo o cache para atualizar os discos
+                        queryClient.clear();
 
-            try {
-                await addDoc(collection(db, "Discos"), {
-                    User_id: user.uid,
-                    Nome_artista: nomeArtista,
-                    Titulo_album: tituloAlbum,
-                    Tamanho: tamanhoDisco,
-                    Ano: Number(anoDisco),
-                    Origem_artista: origemArtista,
-                    Origem_disco: origemDisco,
-                    Situacao_disco: situacaoDisco,
-                    Situacao_capa: situacaoCapa,
-                    Estilo: estilo,
-                    Tipo: tipo,
-                    Encarte: encarte,
-                    Observacoes: observacoes,
-                    Criado_em: new Date(),
-                });
-
-                Swal.fire({
-                    icon: "success",
-                    title: "Sucesso!",
-                    text: `O álbum ${tituloAlbum} foi adicionado com sucesso!`,
-                    timer: 1000,
-                    showCancelButton: false,
-                    showConfirmButton: false
-                })
-                .then(() => {
-                    setNomeArtista("");
-                    setTituloAlbum("");
-                    setTamanhoDisco(null);
-                    setAnoDisco(0)
-                    setOrigemArtista(null)
-                    setOrigemDisco(null);
-                    setSituacaoDisco(null);
-                    setSituacaoCapa(null);
-                    setEstilo(null);
-                    setTipo(null);
-                    setEncarte(null);
-                    setObservacoes("")
-
-                    queryClient.invalidateQueries(['countDisks', user.uid]);
-                })
-            } catch(error) {
+                        navigate(`/relacao/titulo-album`)
+                    })
+                } catch(error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Erro!",
+                        text: `Erro ao editar o álbum: ${error.message}, contate algum administrador do sistema.`,
+                        showConfirmButton: true,
+                    })
+                }
+            } else {
                 Swal.fire({
                     icon: "error",
                     title: "Erro!",
-                    text: `Erro ao adicionar o álbum: ${error.message}, contate algum administrador do sistema.`,
+                    text: `Todos os campos do formulário devem estar preenchidos!`,
                     showConfirmButton: true,
                 })
             }
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "Erro!",
-                text: `Todos os campos do formulário devem estar preenchidos!`,
-                showConfirmButton: true,
-            })
-        }
+    };
+
+    const handleDeleteDisk = async (id) => {
+        Swal.fire({
+            title: "Você tem certeza?",
+            text: "Após deletar, não será possível recuperar os dados do álbum.",
+            confirmButtonText: "Deletar",
+            icon: "question",
+            denyButtonText: `Não`,
+            showDenyButton: true,
+        }).then(async (result) => { // Transformamos essa função em async
+            if (result.isConfirmed) {
+                try {
+                    await deleteDoc(doc(db, "Discos", id));
+
+                    Swal.fire({
+                        title: "Disco deletado com sucesso!",
+                        icon: "success"
+                    }).then (() => { 
+                        navigate("/relacao/titulo-album");
+                    })
+                    
+                } catch (error) {
+                    console.error(error);
+                    Swal.fire("Erro ao deletar", "Tente novamente mais tarde.", "error");
+                }
+            } else if (result.isDenied) {
+                console.log(`Ação "deletar disco" cancelada.`)
+            }
+        });
     };
 
     // usando o media query para ajustar a fonte
@@ -185,6 +211,70 @@ const Form_add_discos = () => {
             },
         }),
     };
+
+    // recupera os dados do disco da URL
+    const buscarDisco = async (disco, user_uid) => {
+        try {
+            setCarregando(true);
+            const docRef = doc(db, "Discos", disco);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                
+                // verifica se o disco é mesmo do usuário
+                if(data.User_id === user_uid) {
+                    setNomeArtista(data.Nome_artista);
+                    setTituloAlbum(data.Titulo_album);
+                    setTamanhoDisco(data.Tamanho);
+                    setAnoDisco(data.Ano);
+                    setOrigemArtista(data.Origem_artista);
+                    setOrigemDisco(data.Origem_disco);
+                    setSituacaoDisco(data.Situacao_disco);
+                    setSituacaoCapa(data.Situacao_capa);
+                    setEstilo(data.Estilo);
+                    setTipo(data.Tipo);
+                    setEncarte(data.Encarte);
+                    setObservacoes(data.Observacoes);
+                    
+                } else {
+                    navigate(`/error-not-found`)
+                    
+                }
+            } else {
+                navigate(`/error-not-found`)
+                
+            }
+        } catch (error) {
+            console.error(`Erro no try/catch: ${error}`);
+        } finally {
+            setCarregando(false);
+        }
+    }
+    useEffect(() => {
+        buscarDisco(id_disco, user.uid);
+    }, [id_disco])
+
+
+    if (carregando) return (
+        <form className="form-direita-carregando" 
+            style={{ 
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+                width: "50%"
+            }}>
+            <l-ring-2
+                size="80"
+                stroke="5"
+                stroke-length="0.25"
+                bg-opacity="0.1"
+                speed="0.8" 
+                color="#C47D69" 
+            ></l-ring-2>
+        </form>
+    )
 
     return (
         <form className='form-direita' onSubmit={HandleSubmit}>
@@ -320,9 +410,13 @@ const Form_add_discos = () => {
                 />
             </div>
 
-            <button type="submit" className="btn-submit-disk">Cadastrar disco</button>
+            <div className="div-buttons-form">
+                <button type="button" className="btn-submit-disk delete-disk" onClick={() => handleDeleteDisk(id_disco)}>Deletar disco</button>
+
+                <button type="submit" className="btn-submit-disk">Aplicar mudanças</button>
+            </div>
         </form>
     )
 }
 
-export default Form_add_discos;
+export default Form_edit_discos;
