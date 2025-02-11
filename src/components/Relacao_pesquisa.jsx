@@ -89,7 +89,7 @@ const Relacao_pesquisa = ({ busca }) => {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="12">Nenhum restuldado com "{busca}" foi encontrado.</td>
+                            <td colSpan="12">Nenhum restuldado com "{busca}" foi encontrado. Certifique-se de que o nome do artista seja <span style={{ color: "red" }}>exatamente</span> igual ao que foi adicionado.</td>
                         </tr>
                     )
                 ) : (

@@ -207,7 +207,7 @@ const Form_add_discos = () => {
                     type="text" 
                     name="Nome-artista" 
                     value={nomeArtista}
-                    onChange={(e) => setNomeArtista(e.target.value)}
+                    onChange={(e) => setNomeArtista(e.target.value.toLowerCase())}
                     placeholder='Digite...'
                 />
             </div>

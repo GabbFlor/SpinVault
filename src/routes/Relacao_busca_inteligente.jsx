@@ -39,7 +39,7 @@ const Relacao_busca_inteligente = () => {
                             <input 
                                 type="text"
                                 value={pesquisa}
-                                onChange={(e) => setPesquisa(e.target.value)}
+                                onChange={(e) => setPesquisa(e.target.value.toLowerCase())}
                                 className="input-pesquisa"
                                 placeholder="Procure pelo nome do artista..."
                             />
