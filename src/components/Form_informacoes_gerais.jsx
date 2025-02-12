@@ -9,20 +9,6 @@ const Form_informacoes_gerais = () => {
     const { user, loading } = useAuth();
     const queryClient = useQueryClient();
     ring2.register()
-    const [ dados, setDados ] = useState({
-        totalDiscos: "Carregando...",
-        nacionais: "Carregando...",
-        internacionais: "Carregando...",
-        simples: "Carregando...",
-        duplos: "Carregando...",
-        triplos: "Carregando...",
-        decada50: "Carregando...",
-        decada60: "Carregando...",
-        decada70: "Carregando...",
-        decada80: "Carregando...",
-        decada90: "Carregando...",
-        ano2000: "Carregando..."
-    })
 
     // recuperando todas as informações
     const carregarDados = async () => {
