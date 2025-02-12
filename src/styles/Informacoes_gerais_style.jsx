@@ -160,6 +160,10 @@ const Informacoes_gerais_style = createGlobalStyle `
         form div input {
             font-size: 0.75vw;
         }
+
+        .btn-refetch {
+            font-size: 1vw;
+        }
     }
 `
 
