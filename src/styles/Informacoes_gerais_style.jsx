@@ -117,6 +117,37 @@ const Informacoes_gerais_style = createGlobalStyle `
         color: #888;
     }
 
+    .btn-refetch {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        background-color: #c47d69;
+        border: 2px solid #c47d69;
+        font-size: 1.35vw;
+        min-width: 6vw;
+        height: 50px;
+        text-align: center;
+        padding: 0 15px;
+        border-radius: 15px;
+        transition: border, 0.3s;
+        // width: fit-content;
+        cursor: pointer;
+    }
+
+    .btn-refetch:hover {
+        border: 2px solid white;
+        transition: border, 0.3s;
+        background-color: #aa6b5a;
+    }
+
+    .carregamento2 {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     @media (min-width: 1500px) {
         .form-esquerda h1 {
             font-size: 2.5vw;
