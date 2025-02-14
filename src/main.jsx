@@ -22,6 +22,7 @@ import Relacao_discos from './routes/Relacao-discos.jsx'
 import Relacao_especifica from './routes/Relacao_especifica.jsx'
 import Relacao_busca_inteligente from './routes/Relacao_busca_inteligente.jsx'
 import Editar_disco from './routes/Editar_disco.jsx'
+import Landing_page from './routes/Landing_page.jsx'
 
 
 const routes = createBrowserRouter([
@@ -41,6 +42,10 @@ const routes = createBrowserRouter([
       {
         path: "/auth/login",
         element: <Login />
+      },
+      {
+        path: "/apresentacao",
+        element: <Landing_page />
       },
       
       // rotas protegidas (só podem ser acessadas por usuários autenticados)
