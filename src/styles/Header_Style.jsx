@@ -82,7 +82,13 @@ const Header_Style = createGlobalStyle `
 
     .header-logo img {
         // background-color: red;
-        height: 9vw;
+        height: 100px;
+    }
+
+    @media (max-width: 800px) {
+        .section-search form input, .section-search form button {
+            display: none;
+        }
     }
 `
 

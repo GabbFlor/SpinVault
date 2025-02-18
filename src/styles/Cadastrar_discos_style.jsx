@@ -116,7 +116,6 @@ const Cadastrar_discos_style = createGlobalStyle `
         border: 1px solid #ccc;
         height: 38px;
         width: 100%;
-        font-size: 12.5px;
         font-family: "Michroma", sans-serif;
         font-weight: 400;
         font-size: 1vw;
@@ -191,6 +190,59 @@ const Cadastrar_discos_style = createGlobalStyle `
 
         .btn-submit-disk {
             font-size: 0.75vw;
+        }
+    }
+
+    @media (max-width: 370px) {
+        .form-esquerda {
+            display: none;
+        }
+
+        .form-direita {
+            width: 100%;
+        }
+
+        .div-type label, .div-select label {
+            font-size: 2.5vw;
+        }
+
+        .section-form-add-disks {
+            border-radius: 15px;
+            width: 80vw;
+        }
+
+        .div-type input {
+            font-size: 2vw;
+        }
+
+        .btn-submit-disk {
+            font-size: 2.5vw;
+        }
+    }
+
+    @media (min-width: 370px) and (max-width: 800px) {
+        .form-esquerda {
+            display: none;
+        }
+
+        .form-direita {
+            width: 100%;
+        }
+
+        .div-type label, .div-select label {
+            font-size: 2vw;
+        }
+
+        .section-form-add-disks {
+            border-radius: 15px;
+        }
+
+        .div-type input {
+            font-size: 1.75vw;
+        }
+
+        .btn-submit-disk {
+            font-size: 2vw;
         }
     }
 `

@@ -122,6 +122,49 @@ const Landing_page_style = createGlobalStyle `
         text-decoration: underline;
         cursor: pointer;
     }
+
+    @media (max-width: 800px) {
+        .text_section div {
+            width: 75%;
+        }
+
+        .text_section div h1, .grid-section h1 {
+            font-size: 4.5vw;
+        }
+
+        .text_section div p, .grid div {
+            font-size: 1.75vw;
+        }
+
+        .mini-disco-div {
+            padding: 5px;
+            margin-top: -35px;
+            width: 20vw;
+            height: 20vw;
+        }
+
+        .mini-disco-div img {
+            width: 20vw;
+            height: 20vw;
+        }
+
+        .grid {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .grid div {
+            width: 75vw;
+        }
+
+        footer div h1 {
+            font-size: 4.5vw;
+        }
+
+        footer img {
+            width: 30vw;
+            margin-top: -100px;
+        }
+    }
 `
 
 export default Landing_page_style;

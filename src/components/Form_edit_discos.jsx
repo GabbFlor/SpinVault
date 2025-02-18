@@ -170,8 +170,10 @@ const Form_edit_discos = ({ id_disco }) => {
     };
 
     // usando o media query para ajustar a fonte
-    const isLargeScreen = useMediaQuery('(min-width:1500px)');
-    const fontSize = isLargeScreen ? '0.75vw' : '1vw'
+        const isLargeScreen = useMediaQuery('(min-width:1500px)');
+        const isMediumScreen = useMediaQuery('(min-width: 370px) and (max-width: 800px)')
+        const isSmallScreen = useMediaQuery('(max-width: 800px)');
+        const fontSize = isSmallScreen ? "2vw" : isMediumScreen ? '1.75vw' : isLargeScreen ? '0.75vw' : '1vw';
 
     const customStyleSelect = {
         // se refere ao Select no estado padrao, sem nada selecionado

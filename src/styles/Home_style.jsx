@@ -40,7 +40,7 @@ const Home_Style = createGlobalStyle `
     .item-grid {
         background-color: white;
         width: 13vw;
-        height: 30vh;
+        height: 16vw;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -67,6 +67,53 @@ const Home_Style = createGlobalStyle `
         background-color: #555;
     }
 
+    @media (max-width: 370px) {
+        .Pag-Home main h1 {
+            font-size: 4vw;
+        }
+
+        .container-grid {
+            grid-template-columns: repeat(1, 1fr);
+            grid-gap: 25px;
+        }
+
+        .item-grid {
+            width: 50vw;
+            height: 61.5vw;
+        }
+
+        .item-grid img {
+            width: 90%;
+        }
+
+        .item-grid a {
+            font-size: 4vw;
+        }
+    }
+
+    @media (min-width: 370px) and (max-width: 800px) {
+        .Pag-Home main h1 {
+            font-size: 4vw;
+        }
+
+        .container-grid {
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 35px;
+        }
+
+        .item-grid {
+            width: 26vw;
+            height: 32vw;
+        }
+
+        .item-grid img {
+            width: 90%;
+        }
+
+        .item-grid a {
+            font-size: 2.27vw;
+        }
+    }
 `
 
 export default Home_Style;
