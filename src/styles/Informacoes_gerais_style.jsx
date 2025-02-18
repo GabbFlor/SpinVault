@@ -102,7 +102,6 @@ const Informacoes_gerais_style = createGlobalStyle `
         border: 1px solid #ccc;
         height: 38px;
         width: 100%;
-        font-size: 12.5px;
         font-family: "Michroma", sans-serif;
         font-weight: 400;
         font-size: 1vw;
@@ -163,6 +162,60 @@ const Informacoes_gerais_style = createGlobalStyle `
 
         .btn-refetch {
             font-size: 1vw;
+        }
+    }
+
+
+    @media (max-width: 370px) {
+        .form-esquerda {
+            display: none;
+        }
+
+        .form-direita {
+            width: 100%;
+        }
+
+        form div label {
+            font-size: 2.5vw;
+        }
+
+        .section-form-infos-gerais {
+            border-radius: 15px;
+            width: 80vw;
+        }
+
+        form div input {
+            font-size: 2vw;
+        }
+
+        .btn-refetch {
+            font-size: 3vw;
+        }
+    }
+
+    @media (min-width: 370px) and (max-width: 800px) {
+        .form-esquerda {
+            display: none;
+        }
+
+        .form-direita {
+            width: 100%;
+        }
+
+        form div label {
+            font-size: 2vw;
+        }
+
+        .section-form-infos-gerais {
+            border-radius: 15px;
+        }
+
+        form div input {
+            font-size: 1.75vw;
+        }
+
+        .btn-refetch {
+            font-size: 3.5vw;
         }
     }
 `
