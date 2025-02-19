@@ -60,7 +60,9 @@ const Form_login = () => {
     }
 
     return (
-        <form className="form-direita" onSubmit={handleSubmit}>
+        <form className="form-direita form-alinhado" onSubmit={handleSubmit}>
+            <h1 className="title-mobile">Entre na sua conta.</h1>
+
             <div>
                 <label htmlFor="email">Email</label>
                 <input 

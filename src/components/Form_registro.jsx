@@ -152,7 +152,9 @@ const Form_registro = () => {
 
     // usando o media query para ajustar a fonte
     const isLargeScreen = useMediaQuery('(min-width:1500px)');
-    const fontSize = isLargeScreen ? '0.75vw' : '1vw'
+    const isMediumScreen = useMediaQuery('(min-width: 370px) and (max-width: 800px)')
+    const isSmallScreen = useMediaQuery('(max-width: 370px)');
+    const fontSize = isSmallScreen ? "2.5vw" : isMediumScreen ? '1.75vw' : isLargeScreen ? '0.75vw' : '1vw';
 
     const customStyleSelect = {
         // se refere ao Select no estado padrao, sem nada selecionado
@@ -195,6 +197,9 @@ const Form_registro = () => {
 
     return (
         <form className="form-direita" onSubmit={handleSubmit}>
+            
+            <h1 className="title-mobile">Entre na sua conta.</h1>
+
             <div>
                 <label htmlFor="userName">Usuário</label>
                 <input 

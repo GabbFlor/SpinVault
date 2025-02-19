@@ -26,7 +26,7 @@ const Registro_login_style = createGlobalStyle `
         align-items: center;
         justify-content: space-between;
         width: 65vw;
-        min-height: 80vh;
+        height: fit-content;
         max-height: 80vh;
         background-color: white;
         border-radius: 20px;
@@ -60,7 +60,7 @@ const Registro_login_style = createGlobalStyle `
         z-index: 0;
     }
 
-    .form-esquerda h1, .form-esquerda p {
+    .form-esquerda h1, .form-esquerda p, .title-mobile {
         font-family: "Michroma", sans-serif;
         font-weight: 400;
         position: relative;
@@ -78,14 +78,21 @@ const Registro_login_style = createGlobalStyle `
         background-color: white;
         width: 50%;
         height: 100%;
+        height: fit-content;
+        max-height: 80vh;
         padding: 25px;
         box-sizing: border-box;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 15px;
+    }
+
+    .form-alinhado {
+        justify-content: center !important;
+        height: 80vh;
     }
 
     .form-direita div:not(.div-select div) {
@@ -179,6 +186,10 @@ const Registro_login_style = createGlobalStyle `
         bottom: 8%;
     }
 
+    .title-mobile {
+        display: none;
+    }
+
     @media (min-width: 1500px) {
         .form-esquerda h1 {
             font-size: 2.5vw;
@@ -204,6 +215,68 @@ const Registro_login_style = createGlobalStyle `
             font-size: 0.75vw;
         }
     }
+
+    @media (max-width: 800px) {
+        .form-esquerda {
+            display: none;
+        }
+
+        .form-direita {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-direita label, .form-direita a {
+            font-size: 2vw;
+        }
+
+        .form-direita input {
+            font-size: 1.75vw !important;
+        }
+
+        .btn-submit-registro {
+            font-size: 2vw;
+        }
+
+        .title-mobile {
+            display: block;
+            font-size: 2.5vw;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .section-form-registro {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 65vw;
+            height: fit-content;
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+    }
+
+    @media (max-width: 370px) {
+        .form-direita label, .form-direita a {
+            font-size: 3vw;
+        }
+
+        .form-direita input {
+            font-size: 2.50vw !important;
+        }
+
+        .btn-submit-registro {
+            font-size: 3vw;
+        }
+
+        .title-mobile {
+            font-size: 3.5vw;
+        }
+    }
+    
 `
 
 export default Registro_login_style;
