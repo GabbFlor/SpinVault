@@ -34,7 +34,7 @@ const Perfil_style = createGlobalStyle `
         align-items: center;
         width: 50vw;
         gap: 25px;
-        padding: 50px 25px 25px 25px;
+        padding: 100px 25px 25px 25px;
         border-radius: 10px;
 
         margin-top: 100px;
@@ -92,11 +92,15 @@ const Perfil_style = createGlobalStyle `
     .img-temporario {
         background-color: grey;
         color: grey;
-        width: 12.5vw;
-        height: 12.5vw;
+
+        width: 150px;
+        height: 150px;
+
         border-radius: 100%;
-        margin-top: -125px;
+        margin-top: -180px;
         text-align: center;
+
+        position: absolute;
     }
 
     .perfil-add-disks {
@@ -310,6 +314,134 @@ const Perfil_style = createGlobalStyle `
         .div-btns-form-edit button,
         .div-btns-form-edit a {
             font-size: 0.80vw;
+        }
+    }
+
+    @media (max-width: 800px) {
+        .img-temporario {
+
+            width: 85px;
+            height: 85px;
+
+            margin-top: -110px;
+
+            position: absolute
+        }
+
+        .section-perfil, .section-mudar-senha {
+            gap: 35px;
+        }
+
+        .perfil-infos, .section-mudar-senha {
+            height: fit-content;
+            width: 70vw;
+            gap: 25px;
+            padding: 50px 25px 25px 25px;
+            border-radius: 10px;
+            margin-top: 100px;
+        }
+
+        .perfil-infos h1 {
+            font-size: 2.5vw;
+            text-align: center;
+        }
+
+        .destaque {
+            font-size: 2.4vw;
+        }
+
+        .perfil-infos p:not(.destaque) {
+            font-size: 1.75vw;
+        }
+
+        .perfil-infos span {
+            font-size: 3vw;
+        }
+
+        .perfil-add-disks h1 {
+            font-size: 2.5vw;
+        }
+
+        .cards-disks {
+            gap: 2.5vw;
+        }
+
+        .card {
+            padding-bottom: 25px;
+            border-radius: 7.5px;
+            width: 21.66vw
+        }
+
+        .card img {
+            width: 15vw;
+        }
+
+        .card-title {
+            margin-bottom: 20px;
+        }
+
+        .btn-card {
+            font-size: 1.5vw;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .btn-logout {
+            font-size: 2.5vw;
+            padding: 5px;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 17.5vw;
+        }
+
+        .form-edit-perfil div label,
+        .form-mudar-senha div label {
+            font-size: 1.25vw;
+        }
+
+        .form-edit-perfil div input:not(.div-select input),
+        .form-mudar-senha div input {
+            padding: 7.5px;
+            border-radius: 5px;
+            font-size: 1vw;
+        }
+
+        .div-btns-form-edit button, .div-btns-form-edit a,
+        .div-buttons-edit-perfil button, .div-buttons-edit-perfil a {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 1.05vw;
+        }
+
+        // forms !!!!!!!!!
+        .form-edit-perfil {
+            width: 90%;
+        }
+
+        .form-mudar-senha {
+            width: 90%;
+        }
+
+        .form-edit-perfil div label,
+        .form-mudar-senha div label {
+            font-size: 2.5vw;
+        }
+
+        .form-edit-perfil div input:not(.div-select input),
+        .form-mudar-senha div input {
+            font-size: 2.35vw;
+            width: 100%;
+        }
+
+        .div-btns-form-edit button, .div-btns-form-edit a,
+        .div-buttons-edit-perfil button, .div-buttons-edit-perfil a {
+            font-size: 2vw;
+        }
+
+        .btn-show-passw {
+            bottom: 15%;
+            right: 3%;
+            font-size: 12.5px;
         }
     }
 `

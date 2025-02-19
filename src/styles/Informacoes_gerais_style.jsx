@@ -226,6 +226,7 @@ const Informacoes_gerais_style = createGlobalStyle `
 
         .section-form-infos-gerais {
             border-radius: 15px;
+            width: 80vw;
         }
 
         form div input {

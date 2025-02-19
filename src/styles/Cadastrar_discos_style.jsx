@@ -259,6 +259,7 @@ const Cadastrar_discos_style = createGlobalStyle `
         .section-form-add-disks {
             border-radius: 15px;
             height: 100%;
+            width: 80vw;
         }
 
         .form-direita-carregando {

@@ -24,7 +24,8 @@ const Form_edit_perfil = () => {
     const [cidadeSelecionado, setCidadeSelecionado] = useState(null);
 
     const isLargeScreen = useMediaQuery('(min-width:1500px)');
-    const fontSize = isLargeScreen ? '0.75vw' : '1vw'
+    const isMediumScreen = useMediaQuery('(max-width: 800px)')
+    const fontSize = isMediumScreen ? '2.35vw' : isLargeScreen ? '0.75vw' : '1vw';
 
     const customStyleSelect = {
         // se refere ao Select no estado padrao, sem nada selecionado
