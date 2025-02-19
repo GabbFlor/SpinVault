@@ -91,6 +91,8 @@ const Form_informacoes_gerais = () => {
 
     return (
         <form className="form-direita">
+            <h1 className='title-mobile'>Edição ou descarte de discos do Spin Vault</h1>
+
             <div>
                 <button type="button" className="btn-refetch" onClick={() => handleRefetch()}>Atualizar</button>
             </div>

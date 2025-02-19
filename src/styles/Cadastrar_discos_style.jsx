@@ -59,7 +59,7 @@ const Cadastrar_discos_style = createGlobalStyle `
         z-index: 0;
     }
 
-    .form-esquerda h1, .form-esquerda p, .form-esquerda a {
+    .form-esquerda h1, .form-esquerda p, .form-esquerda a, .title-mobile {
         font-family: "Michroma", sans-serif;
         font-weight: 400;
         position: relative;
@@ -171,6 +171,10 @@ const Cadastrar_discos_style = createGlobalStyle `
         background-color: #fc4c4c;
     }
 
+    .title-mobile {
+        display: none;
+    }
+
     @media (min-width: 1500px) {
         .form-esquerda h1 {
             font-size: 2.5vw;
@@ -200,6 +204,9 @@ const Cadastrar_discos_style = createGlobalStyle `
 
         .form-direita {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .div-type label, .div-select label {
@@ -209,6 +216,11 @@ const Cadastrar_discos_style = createGlobalStyle `
         .section-form-add-disks {
             border-radius: 15px;
             width: 80vw;
+            height: 100%;
+        }
+
+        .form-direita-carregando {
+            width: 100% !important;
         }
 
         .div-type input {
@@ -217,6 +229,14 @@ const Cadastrar_discos_style = createGlobalStyle `
 
         .btn-submit-disk {
             font-size: 2.5vw;
+        }
+
+        .title-mobile {
+            display: block;
+            font-size: 2.5vw;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
         }
     }
 
@@ -227,6 +247,9 @@ const Cadastrar_discos_style = createGlobalStyle `
 
         .form-direita {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .div-type label, .div-select label {
@@ -235,6 +258,11 @@ const Cadastrar_discos_style = createGlobalStyle `
 
         .section-form-add-disks {
             border-radius: 15px;
+            height: 100%;
+        }
+
+        .form-direita-carregando {
+            width: 100% !important;
         }
 
         .div-type input {
@@ -243,6 +271,14 @@ const Cadastrar_discos_style = createGlobalStyle `
 
         .btn-submit-disk {
             font-size: 2vw;
+        }
+
+        .title-mobile {
+            display: block;
+            font-size: 2.5vw;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
         }
     }
 `

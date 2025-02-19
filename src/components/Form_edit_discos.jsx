@@ -280,6 +280,8 @@ const Form_edit_discos = ({ id_disco }) => {
 
     return (
         <form className='form-direita' onSubmit={HandleSubmit}>
+            <h1 className='title-mobile'>Edição ou descarte de discos do Spin Vault</h1>
+
             <div className='div-type'>
                 <label htmlFor="Nome-artista">Nome do Artista</label>
                 <input 

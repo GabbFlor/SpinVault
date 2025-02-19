@@ -190,6 +190,8 @@ const Form_add_discos = () => {
 
     return (
         <form className='form-direita' onSubmit={HandleSubmit}>
+            <h1 className='title-mobile'>Cadastro de discos do Spin Vault</h1>
+
             <div className='div-type'>
                 <label htmlFor="Nome-artista">Nome do Artista</label>
                 <input 

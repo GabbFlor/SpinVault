@@ -59,7 +59,7 @@ const Informacoes_gerais_style = createGlobalStyle `
         z-index: 0;
     }
 
-    .form-esquerda h1 {
+    .form-esquerda h1, .title-mobile {
         font-family: "Michroma", sans-serif;
         font-weight: 400;
         position: relative;
@@ -147,6 +147,10 @@ const Informacoes_gerais_style = createGlobalStyle `
         align-items: center;
     }
 
+    .title-mobile {
+        display: none;
+    }
+
     @media (min-width: 1500px) {
         .form-esquerda h1 {
             font-size: 2.5vw;
@@ -173,6 +177,9 @@ const Informacoes_gerais_style = createGlobalStyle `
 
         .form-direita {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         form div label {
@@ -191,6 +198,14 @@ const Informacoes_gerais_style = createGlobalStyle `
         .btn-refetch {
             font-size: 3vw;
         }
+
+        .title-mobile {
+            display: block;
+            font-size: 2.5vw;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
     }
 
     @media (min-width: 370px) and (max-width: 800px) {
@@ -200,6 +215,9 @@ const Informacoes_gerais_style = createGlobalStyle `
 
         .form-direita {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         form div label {
@@ -216,6 +234,14 @@ const Informacoes_gerais_style = createGlobalStyle `
 
         .btn-refetch {
             font-size: 3.5vw;
+        }
+
+        .title-mobile {
+            display: block;
+            font-size: 2.5vw;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
         }
     }
 `
