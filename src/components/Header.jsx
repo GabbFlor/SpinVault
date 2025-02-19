@@ -2,14 +2,17 @@ import Icon_disk_img from '../assets/icon_disk.png'
 import { BsPersonFill, BsSearch } from "react-icons/bs";
 import Header_Style from '../styles/Header_Style';
 import logo_Site from '../assets/logo_escrita.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { db } from "../firebase-config"
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../AuthContext';
+import { useState } from 'react';
 
 const Header = () => {
     const { user, loading } = useAuth();
+    const [search, setSearch] = useState("");
+    const navigate = useNavigate();
 
     // funcao que retorna a quantidade de discos que o usuario adicionou
     const contadorDeDiscos = async (userUid) => {
@@ -34,6 +37,12 @@ const Header = () => {
         staleTime: 1000 * 60 * 5,
     });
     
+    const handleSearch = (e) => {
+        e.preventDefault();
+
+        navigate(`/busca-inteligente/${search}`)
+    }
+
     return (
         <header>
             <Header_Style />
@@ -41,10 +50,12 @@ const Header = () => {
             <Link to={"/"} className='header-logo' title='Início'><img src={logo_Site} alt="Logo" /></Link>
 
             <section className="section-search">
-                <form>
+                <form onSubmit={handleSearch}>
                     <input 
                         type="text"
-                        placeholder="Pesquisar disco..."
+                        placeholder="Pesquisar artista..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value.toLowerCase())}
                     />
                     <button type="submit"><BsSearch/></button>
                 </form>
