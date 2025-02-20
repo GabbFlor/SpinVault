@@ -109,6 +109,7 @@ const Tabelas_style = createGlobalStyle `
 
     .cabecalho th, tbody tr td {
         font-size: 1.05vw;
+        padding: 5px
     }
 
     .carregamento {
@@ -148,6 +149,20 @@ const Tabelas_style = createGlobalStyle `
         cursor: pointer;
     }
 
+    .btn-ver-mais {
+        margin: 5px;
+        background-color: #C47D69;
+        color: black;
+        border: none;
+        padding: 2.5px;
+        border-radius: 2.5px;
+        font-size: 1.05vw;
+    }
+
+    .btn-ver-mais:active {
+        background-color:rgb(218, 179, 169);
+    }
+
     @media (min-width: 1500px) {
         .nav-classificacoes div a, .btn-carregar {
             font-size: 1vw;
@@ -159,6 +174,76 @@ const Tabelas_style = createGlobalStyle `
 
         .cabecalho th, tbody tr td {
             font-size: 0.85vw;
+        }
+    }
+
+    // Responsividade tablet
+    @media (max-width: 800px) {
+        .Pag-relacao-discos main {
+            width: 100%;
+        }
+
+        .nav-classificacoes div {
+            gap: 0px;
+        }
+
+        .nav-classificacoes div a, .btn-carregar {
+            font-size: 2vw;
+            width: 15vw;
+            height: 40px;
+        }
+
+        .cell-title th {
+            padding: 10px;
+            font-size: 3vw;
+            font-weight: 500;
+        }
+
+        .cabecalho th, tbody tr td {
+            font-size: 2vw;
+        }
+
+        .carregamento {
+            align-items: flex-end;
+        }
+
+        .btn-ver-mais {
+            font-size: 2vw;
+        }
+    }
+
+    // Responsividade Mobile
+    @media (max-width: 500px) {
+        .Pag-relacao-discos main {
+            width: 100%;
+        }
+
+        .nav-classificacoes div {
+            gap: 0px;
+        }
+
+        .nav-classificacoes div a, .btn-carregar {
+            font-size: 3vw;
+            width: 15vw;
+            height: 40px;
+        }
+
+        .cell-title th {
+            padding: 10px;
+            font-size: 3.5vw;
+            font-weight: 500;
+        }
+
+        .cabecalho th, tbody tr td {
+            font-size: 2.75vw;
+        }
+
+        .carregamento {
+            align-items: flex-end;
+        }
+
+        .btn-ver-mais {
+            font-size: 2.75vw;
         }
     }
 `

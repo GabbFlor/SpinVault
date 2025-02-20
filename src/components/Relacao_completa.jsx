@@ -5,6 +5,8 @@ import { db } from "../firebase-config";
 import { dotWave } from "ldrs";
 import { useQueryClient, useQuery } from '@tanstack/react-query'
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import React from "react";
 
 const Relacao_completa = ({ consulta }) => {
     const [carregando, setCarregando] = useState(false);
@@ -13,6 +15,8 @@ const Relacao_completa = ({ consulta }) => {
     const queryClient = useQueryClient();
     let q;
     dotWave.register();
+
+    const isNormalScreen = useMediaQuery({ minWidth: 800 })
 
     const pegarDadosIniciais = async () => {
         if(!user || !user.uid) {
@@ -148,79 +152,140 @@ const Relacao_completa = ({ consulta }) => {
 
     if (error) return <p>Erro: {error.message}</p>;
 
-    return (
-        <div className="div-da-table">
-            <table>
-                <thead>
-                    <tr className="cell-title">
-                        <th colSpan="13">Relação completa de discos 
-                            {consulta == "Titulo_album" ? (
-                                " (Titulo)"
-                            ) : consulta == "Origem_disco" ? (
-                                " (Origem dos discos)"
-                            ) : consulta == "Nome_artista" ? (
-                                " (Artista)"
-                            ) : consulta == "Ano" ? (
-                                " (Ano)"
-                            ) : ("")}
-                        </th>
-                    </tr>
-                    <tr className="cabecalho">
-                        <th>Artista</th>
-                        <th>Título</th>
-                        <th>Tamanho</th>
-                        <th>Ano(P)</th>
-                        <th>Origem Artista</th>
-                        <th>Origem Disco</th>
-                        <th>Situação Disco</th>
-                        <th>Situação Capa</th>
-                        <th>Estilo</th>
-                        <th>Tipo</th>
-                        <th>Encarte</th>
-                        <th>Obs.</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {discos.map((disco) => (
-                        <tr key={disco.id}>
-                            <td>{disco.Nome_artista}</td>
-                            <td>{disco.Titulo_album}</td>
-                            <td>{disco.Tamanho}</td>
-                            <td>{disco.Ano}</td>
-                            <td>{disco.Origem_artista}</td>
-                            <td>{disco.Origem_disco}</td>
-                            <td>{disco.Situacao_disco}</td>
-                            <td>{disco.Situacao_capa}</td>
-                            <td>{disco.Estilo}</td>
-                            <td>{disco.Tipo}</td>
-                            <td>{disco.Encarte}</td>
-                            <td>{disco.Observacoes}</td>
-                            <td><Link to={`/editar-disco/${disco.id}`}>Editar</Link></td>
+    // is normal é tela de PC e o else é o de cell
+    if (isNormalScreen) {
+        return (
+            <div className="div-da-table">
+                <table>
+                    <thead>
+                        <tr className="cell-title">
+                            <th colSpan="13">Relação completa de discos 
+                                {consulta == "Titulo_album" ? (
+                                    " (Titulo)"
+                                ) : consulta == "Origem_disco" ? (
+                                    " (Origem dos discos)"
+                                ) : consulta == "Nome_artista" ? (
+                                    " (Artista)"
+                                ) : consulta == "Ano" ? (
+                                    " (Ano)"
+                                ) : ("")}
+                            </th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            
-            <div className="div-btns">
-                <button onClick={handleUpdate} className="btn-carregar">Atualizar</button>
-
-                {sumirBtn == false ? (
-                    <button onClick={carregarProximaPagina} className="btn-carregar">Carregar mais</button>
-                ) : ("")}
-            </div>
-
-            {carregando && (
-                <div className="carregamento">
-                    <l-dot-wave
-                        size="60"
-                        speed="1" 
-                        color="white" 
-                    ></l-dot-wave>
+                        <tr className="cabecalho">
+                            <th>Artista</th>
+                            <th>Título</th>
+                            <th>Tamanho</th>
+                            <th>Ano(P)</th>
+                            <th>Origem Artista</th>
+                            <th>Origem Disco</th>
+                            <th>Situação Disco</th>
+                            <th>Situação Capa</th>
+                            <th>Estilo</th>
+                            <th>Tipo</th>
+                            <th>Encarte</th>
+                            <th>Obs.</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {discos.map((disco) => (
+                            <tr key={disco.id}>
+                                <td>{disco.Nome_artista}</td>
+                                <td>{disco.Titulo_album}</td>
+                                <td>{disco.Tamanho}</td>
+                                <td>{disco.Ano}</td>
+                                <td>{disco.Origem_artista}</td>
+                                <td>{disco.Origem_disco}</td>
+                                <td>{disco.Situacao_disco}</td>
+                                <td>{disco.Situacao_capa}</td>
+                                <td>{disco.Estilo}</td>
+                                <td>{disco.Tipo}</td>
+                                <td>{disco.Encarte}</td>
+                                <td>{disco.Observacoes}</td>
+                                <td><Link className="btn-ver-mais" to={`/editar-disco/${disco.id}`}>Editar</Link></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                
+                <div className="div-btns">
+                    <button onClick={handleUpdate} className="btn-carregar">Atualizar</button>
+    
+                    {sumirBtn == false ? (
+                        <button onClick={carregarProximaPagina} className="btn-carregar">Carregar mais</button>
+                    ) : ("")}
                 </div>
-            )}
-        </div>
-    )
+    
+                {carregando && (
+                    <div className="carregamento">
+                        <l-dot-wave
+                            size="60"
+                            speed="1" 
+                            color="white" 
+                        ></l-dot-wave>
+                    </div>
+                )}
+            </div>
+        )
+    } else {
+        return (
+            <div className="div-da-table">
+                <table>
+                    <thead>
+                        <tr className="cell-title">
+                            <th colSpan="5">Relação completa de discos 
+                                {consulta == "Titulo_album" ? (
+                                    " (Titulo)"
+                                ) : consulta == "Origem_disco" ? (
+                                    " (Origem dos discos)"
+                                ) : consulta == "Nome_artista" ? (
+                                    " (Artista)"
+                                ) : consulta == "Ano" ? (
+                                    " (Ano)"
+                                ) : ("")}
+                            </th>
+                        </tr>
+                        <tr className="cabecalho">
+                            <th>Artista</th>
+                            <th>Título</th>
+                            <th>Ano(P)</th>
+                            <th>Origem Disco</th>
+                            <th>Visualisação completa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {discos.map((disco) => (
+                            <tr key={disco.id}>
+                                <td>{disco.Nome_artista}</td>
+                                <td>{disco.Titulo_album}</td>
+                                <td>{disco.Ano}</td>
+                                <td>{disco.Origem_disco}</td>
+                                <td><button type="button" className="btn-ver-mais">Ver mais</button></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                
+                <div className="div-btns">
+                    <button onClick={handleUpdate} className="btn-carregar">Atualizar</button>
+    
+                    {sumirBtn == false ? (
+                        <button onClick={carregarProximaPagina} className="btn-carregar">Carregar mais</button>
+                    ) : ("")}
+
+                    {carregando && (
+                        <div className="carregamento">
+                            <l-dot-wave
+                                size="60"
+                                speed="1" 
+                                color="white" 
+                            ></l-dot-wave>
+                        </div>
+                    )}
+                </div>
+            </div>
+        )
+    }
 }
 
 export default Relacao_completa;

@@ -68,6 +68,10 @@ const Home_Style = createGlobalStyle `
     }
 
     @media (max-width: 370px) {
+        .Pag-Home main {
+            padding: 15px 0 0 0;
+        }
+
         .Pag-Home main h1 {
             font-size: 4vw;
         }
@@ -92,6 +96,10 @@ const Home_Style = createGlobalStyle `
     }
 
     @media (min-width: 370px) and (max-width: 800px) {
+        .Pag-Home main {
+            padding: 15px 0 0 0;
+        }
+
         .Pag-Home main h1 {
             font-size: 4vw;
         }
