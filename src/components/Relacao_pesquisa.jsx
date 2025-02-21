@@ -5,6 +5,7 @@ import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import Pop_up_disco from "./Pop_up_disco";
 
 const Relacao_pesquisa = ({ busca }) => {
     const [carregando, setCarregando] = useState(false);
@@ -13,6 +14,14 @@ const Relacao_pesquisa = ({ busca }) => {
     const [ discos, setDiscos ] = useState([]);
     let q;
     dotWave.register();
+    // coisas do pop-up responsividade
+    const [mostrarPopUp, setMostrarPopUp] = useState(false);
+    const [dadosSelecionados, setDadosSelecionados] = useState(null);
+        
+    const abrirPopUp = (dado) => {
+        setDadosSelecionados(dado);
+        setMostrarPopUp(true);
+    }
 
     // responsividade
     const isNormalScreen = useMediaQuery({ minWidth: 800 })
@@ -122,8 +131,12 @@ const Relacao_pesquisa = ({ busca }) => {
     } else {
         return (
             <div className="div-da-table">
+                {mostrarPopUp && (
+                    <Pop_up_disco dados={dadosSelecionados} fechar={() => setMostrarPopUp(false)}/>
+                )}
+
                 <table>
-                <thead>
+                    <thead>
                         <tr className="cell-title">
                             <th colSpan="5">Pesquisa inteligente</th>
                         </tr>
@@ -144,7 +157,7 @@ const Relacao_pesquisa = ({ busca }) => {
                                     <td>{disco.Titulo_album}</td>
                                     <td>{disco.Ano}</td>
                                     <td>{disco.Origem_disco}</td>
-                                    <td><button type="button" className="btn-ver-mais">Ver mais</button></td>
+                                    <td><button type="button" className="btn-ver-mais" onClick={() => abrirPopUp(disco)}>Ver mais</button></td>
                                 </tr>
                             ))
                         ) : (

@@ -7,12 +7,22 @@ import { useQueryClient, useQuery } from '@tanstack/react-query'
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import React from "react";
+import Pop_up_disco from "./Pop_up_disco";
 
 const Relacao_completa = ({ consulta }) => {
     const [carregando, setCarregando] = useState(false);
     const { user, loading } = useAuth();
     const [ sumirBtn, setSumirBtn] = useState(false);
     const queryClient = useQueryClient();
+    // coisas do pop-up responsividade
+    const [mostrarPopUp, setMostrarPopUp] = useState(false);
+    const [dadosSelecionados, setDadosSelecionados] = useState(null);
+    
+    const abrirPopUp = (dado) => {
+        setDadosSelecionados(dado);
+        setMostrarPopUp(true);
+    }
+
     let q;
     dotWave.register();
 
@@ -230,6 +240,10 @@ const Relacao_completa = ({ consulta }) => {
     } else {
         return (
             <div className="div-da-table">
+                {mostrarPopUp && (
+                    <Pop_up_disco dados={dadosSelecionados} fechar={() => setMostrarPopUp(false)}/>
+                )}
+
                 <table>
                     <thead>
                         <tr className="cell-title">
@@ -260,7 +274,7 @@ const Relacao_completa = ({ consulta }) => {
                                 <td>{disco.Titulo_album}</td>
                                 <td>{disco.Ano}</td>
                                 <td>{disco.Origem_disco}</td>
-                                <td><button type="button" className="btn-ver-mais">Ver mais</button></td>
+                                <td><button type="button" className="btn-ver-mais" onClick={() => abrirPopUp(disco)}>Ver mais</button></td>
                             </tr>
                         ))}
                     </tbody>

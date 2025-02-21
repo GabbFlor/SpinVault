@@ -6,6 +6,7 @@ import { dotWave } from "ldrs";
 import { db } from "../firebase-config";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import Pop_up_disco from "./Pop_up_disco";
 
 const Relacao_nacionais_e_internacionais = ({ consulta }) => {
     const [carregando, setCarregando] = useState(false);
@@ -15,6 +16,14 @@ const Relacao_nacionais_e_internacionais = ({ consulta }) => {
     const queryClient = useQueryClient();
     let q;
     dotWave.register();
+    // coisas do pop-up responsividade
+    const [mostrarPopUp, setMostrarPopUp] = useState(false);
+    const [dadosSelecionados, setDadosSelecionados] = useState(null);
+    
+    const abrirPopUp = (dado) => {
+        setDadosSelecionados(dado);
+        setMostrarPopUp(true);
+    }
 
     // responsividade
     const isNormalScreen = useMediaQuery({ minWidth: 800 })
@@ -208,6 +217,10 @@ const Relacao_nacionais_e_internacionais = ({ consulta }) => {
     } else {
         return (
             <div className="div-da-table">
+                {mostrarPopUp && (
+                    <Pop_up_disco dados={dadosSelecionados} fechar={() => setMostrarPopUp(false)}/>
+                )}
+
                 <table>
                     <thead>
                         <tr className="cell-title">
@@ -232,7 +245,7 @@ const Relacao_nacionais_e_internacionais = ({ consulta }) => {
                                 <td>{discoFiltrado.Titulo_album}</td>
                                 <td>{discoFiltrado.Ano}</td>
                                 <td>{discoFiltrado.Origem_disco}</td>
-                                <td><button type="button" className="btn-ver-mais">Ver mais</button></td>
+                                <td><button type="button" className="btn-ver-mais" onClick={() => abrirPopUp(discoFiltrado)}>Ver mais</button></td>
                             </tr>
                         ))}
                     </tbody>
