@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { useEffect } from "react";
 import Tabelas_style from "../styles/Tabelas_style";
 import Relacao_nacionais_e_internacionais from "../components/Relacao_nacionais_e_internacionais";
+import Footer from "../components/Footer";
 
 const Relacao_especifica = () => {
     const { argumento } = useParams();
@@ -31,6 +32,8 @@ const Relacao_especifica = () => {
 
                 <Relacao_nacionais_e_internacionais consulta={argumento} />
             </main>
+
+            <Footer />
         </div>
     )
 }

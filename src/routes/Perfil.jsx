@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Perfil_logado from "../components/Perfil_logado";
 import Perfil_por_id from "../components/Perfil_por_id";
 import Perfil_style from "../styles/Perfil_style";
+import Footer from "../components/Footer";
 
 const Perfil = () => {
     const { profile_id } = useParams();
@@ -16,6 +17,8 @@ const Perfil = () => {
             <main>
                 <h1>{profile_id != null ? (<Perfil_por_id profile_id={profile_id}/>) : (<Perfil_logado />)}</h1>
             </main>
+
+            <Footer />
         </div>
     )
 }

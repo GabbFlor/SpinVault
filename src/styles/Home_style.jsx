@@ -69,7 +69,7 @@ const Home_Style = createGlobalStyle `
 
     @media (max-width: 500px) {
         .Pag-Home main {
-            padding: 15px 0 0 0;
+            padding: 15px 0 25px 0;
         }
 
         .Pag-Home main h1 {
@@ -98,7 +98,7 @@ const Home_Style = createGlobalStyle `
 
     @media (min-width: 500px) and (max-width: 800px) {
         .Pag-Home main {
-            padding: 15px 0 0 0;
+            padding: 15px 0 25px 0;
         }
 
         .Pag-Home main h1 {

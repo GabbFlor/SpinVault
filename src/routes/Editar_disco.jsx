@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom"
 import Form_edit_discos from "../components/Form_edit_discos"
 import Header from "../components/Header"
 import Cadastrar_discos_style from "../styles/Cadastrar_discos_style"
+import Footer from "../components/Footer"
 
 const Editar_disco = () => {
     const { id } = useParams();
@@ -24,6 +25,8 @@ const Editar_disco = () => {
                     <Form_edit_discos id_disco={id} />
                 </section>
             </main>
+
+            <Footer />
         </div>
     )
 }

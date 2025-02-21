@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Form_edit_perfil from "../components/Form_edit_perfil";
 import Header from "../components/Header";
 import Perfil_style from "../styles/Perfil_style";
@@ -12,6 +13,8 @@ const Editar_perfil = () => {
             <main>
                 <Form_edit_perfil />
             </main>
+
+            <Footer />
         </div>
     )
 }

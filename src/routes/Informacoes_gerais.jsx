@@ -2,6 +2,7 @@ import Form_informacoes_gerais from "../components/Form_informacoes_gerais";
 import Header from "../components/Header";
 import { BsCardList } from "react-icons/bs";
 import Informacoes_gerais_style from "../styles/Informacoes_gerais_style";
+import Footer from "../components/Footer";
 
 const Informacoes_gerais = () => {
     return (
@@ -19,6 +20,8 @@ const Informacoes_gerais = () => {
                     <Form_informacoes_gerais />
                 </section>
             </main>
+
+            <Footer />
         </div>
     )
 }

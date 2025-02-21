@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Relacao_completa from "../components/Relacao_completa";
 import Tabelas_style from "../styles/Tabelas_style";
 import { useEffect } from "react";
+import Footer from "../components/Footer";
 
 const Relacao_discos = () => {
     const { argumento } = useParams();
@@ -49,6 +50,8 @@ const Relacao_discos = () => {
                     <Relacao_completa consulta={"busca-inteligente"} />
                 )}
             </main>
+
+            <Footer />
         </div>
     )
 }

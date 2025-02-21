@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Grid_home from "../components/Grid_home";
 import Header from "../components/Header";
 import Home_Style from "../styles/Home_style";
@@ -14,6 +15,8 @@ const Home = () => {
 
                 <Grid_home />
             </main>
+
+            <Footer />
         </div>
     )
 }

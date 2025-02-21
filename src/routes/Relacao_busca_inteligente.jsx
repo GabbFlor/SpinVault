@@ -4,6 +4,7 @@ import Tabelas_style from "../styles/Tabelas_style";
 import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import Relacao_pesquisa from "../components/Relacao_pesquisa";
+import Footer from "../components/Footer";
 
 const Relacao_busca_inteligente = () => {
     const { busca } = useParams();
@@ -50,6 +51,8 @@ const Relacao_busca_inteligente = () => {
 
                 <Relacao_pesquisa busca={busca}/>
             </main>
+
+            <Footer />
         </div>
     )
 }

@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Form_mudar_senha from "../components/Form_mudar_senha";
 import Header from "../components/Header";
 import Perfil_style from "../styles/Perfil_style";
@@ -18,6 +19,8 @@ const Mudar_senha = () => {
                     <Form_mudar_senha />
                 </section>
             </main>
+
+            <Footer />
         </div>
     )
 }
