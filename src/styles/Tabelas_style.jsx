@@ -210,6 +210,11 @@ const Tabelas_style = createGlobalStyle `
         .btn-ver-mais {
             font-size: 2vw;
         }
+
+        .input-pesquisa {
+            width: 35vw !important;
+            font-size: 2vw !important;
+        }
     }
 
     // Responsividade Mobile
@@ -244,6 +249,11 @@ const Tabelas_style = createGlobalStyle `
 
         .btn-ver-mais {
             font-size: 2.75vw;
+        }
+
+        .input-pesquisa {
+            width: 42.5vw !important;
+            font-size: 2.75vw !important;
         }
     }
 `

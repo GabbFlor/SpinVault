@@ -250,7 +250,7 @@ const Relacao_completa = ({ consulta }) => {
                             <th>Título</th>
                             <th>Ano(P)</th>
                             <th>Origem Disco</th>
-                            <th>Visualisação completa</th>
+                            <th>Visualização completa</th>
                         </tr>
                     </thead>
                     <tbody>
