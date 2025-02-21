@@ -67,7 +67,7 @@ const Home_Style = createGlobalStyle `
         background-color: #555;
     }
 
-    @media (max-width: 370px) {
+    @media (max-width: 500px) {
         .Pag-Home main {
             padding: 15px 0 0 0;
         }
@@ -83,7 +83,7 @@ const Home_Style = createGlobalStyle `
 
         .item-grid {
             width: 50vw;
-            height: 61.5vw;
+            height: 65.5vw;
         }
 
         .item-grid img {
@@ -92,10 +92,11 @@ const Home_Style = createGlobalStyle `
 
         .item-grid a {
             font-size: 4vw;
+            padding: 15px 25px 15px 25px;
         }
     }
 
-    @media (min-width: 370px) and (max-width: 800px) {
+    @media (min-width: 500px) and (max-width: 800px) {
         .Pag-Home main {
             padding: 15px 0 0 0;
         }
@@ -111,7 +112,7 @@ const Home_Style = createGlobalStyle `
 
         .item-grid {
             width: 26vw;
-            height: 32vw;
+            height: 36vw;
         }
 
         .item-grid img {
@@ -120,6 +121,7 @@ const Home_Style = createGlobalStyle `
 
         .item-grid a {
             font-size: 2.27vw;
+            padding: 15px 25px 15px 25px;
         }
     }
 `

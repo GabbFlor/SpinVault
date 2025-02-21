@@ -188,8 +188,8 @@ const Relacao_nacionais_e_internacionais = ({ consulta }) => {
                                 <td>{discoFiltrado.Estilo}</td>
                                 <td>{discoFiltrado.Tipo}</td>
                                 <td>{discoFiltrado.Encarte}</td>
-                                <td>{discoFiltrado.Observacoes}</td>
-                                <td><Link to={`/editar-disco/${discoFiltrado.id}`}>Editar</Link></td>
+                                <td>{discoFiltrado.Observacoes.length > 10 ? discoFiltrado.Observacoes.slice(0, 10) + "..." : discoFiltrado.Observacoes}</td>
+                                <td><Link to={`/editar-disco/${discoFiltrado.id}`} className="btn-ver-mais">Editar</Link></td>
                             </tr>
                         ))}
                     </tbody>

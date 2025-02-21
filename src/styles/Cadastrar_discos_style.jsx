@@ -197,7 +197,7 @@ const Cadastrar_discos_style = createGlobalStyle `
         }
     }
 
-    @media (max-width: 370px) {
+    @media (max-width: 500px) {
         .form-esquerda {
             display: none;
         }
@@ -210,7 +210,7 @@ const Cadastrar_discos_style = createGlobalStyle `
         }
 
         .div-type label, .div-select label {
-            font-size: 2.5vw;
+            font-size: 3vw;
         }
 
         .section-form-add-disks {
@@ -224,23 +224,23 @@ const Cadastrar_discos_style = createGlobalStyle `
         }
 
         .div-type input {
-            font-size: 2vw;
+            font-size: 3vw;
         }
 
         .btn-submit-disk {
-            font-size: 2.5vw;
+            font-size: 3.5vw;
         }
 
         .title-mobile {
             display: block;
-            font-size: 2.5vw;
+            font-size: 3.5vw;
             font-weight: 600;
             margin-bottom: 10px;
             text-align: center;
         }
     }
 
-    @media (min-width: 370px) and (max-width: 800px) {
+    @media (max-width: 800px) {
         .form-esquerda {
             display: none;
         }
@@ -253,7 +253,7 @@ const Cadastrar_discos_style = createGlobalStyle `
         }
 
         .div-type label, .div-select label {
-            font-size: 2vw;
+            font-size: 2.5vw;
         }
 
         .section-form-add-disks {
@@ -267,16 +267,16 @@ const Cadastrar_discos_style = createGlobalStyle `
         }
 
         .div-type input {
-            font-size: 1.75vw;
+            font-size: 2.5vw;
         }
 
         .btn-submit-disk {
-            font-size: 2vw;
+            font-size: 2.5vw;
         }
 
         .title-mobile {
             display: block;
-            font-size: 2.5vw;
+            font-size: 3vw;
             font-weight: 600;
             margin-bottom: 10px;
             text-align: center;

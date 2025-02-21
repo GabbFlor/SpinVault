@@ -229,11 +229,11 @@ const Registro_login_style = createGlobalStyle `
         }
 
         .form-direita label, .form-direita a {
-            font-size: 2vw;
+            font-size: 2.5vw;
         }
 
-        .form-direita input {
-            font-size: 1.75vw !important;
+        .form-direita input:not(.div-select input) {
+            font-size: 2.5vw;
         }
 
         .btn-submit-registro {
@@ -242,7 +242,7 @@ const Registro_login_style = createGlobalStyle `
 
         .title-mobile {
             display: block;
-            font-size: 2.5vw;
+            font-size: 3.5vw;
             font-weight: 600;
             text-align: center;
         }
@@ -259,13 +259,17 @@ const Registro_login_style = createGlobalStyle `
         }
     }
 
-    @media (max-width: 370px) {
+    @media (max-width: 500px) {
+        .section-form-registro {
+            width: 90vw !important;
+        }
+
         .form-direita label, .form-direita a {
             font-size: 3vw;
         }
 
         .form-direita input {
-            font-size: 2.50vw !important;
+            font-size: 3vw !important;
         }
 
         .btn-submit-registro {

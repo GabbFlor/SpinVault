@@ -170,7 +170,7 @@ const Informacoes_gerais_style = createGlobalStyle `
     }
 
 
-    @media (max-width: 370px) {
+    @media (max-width: 500px) {
         .form-esquerda {
             display: none;
         }
@@ -183,54 +183,16 @@ const Informacoes_gerais_style = createGlobalStyle `
         }
 
         form div label {
-            font-size: 2.5vw;
-        }
-
-        .section-form-infos-gerais {
-            border-radius: 15px;
-            width: 80vw;
-        }
-
-        form div input {
-            font-size: 2vw;
-        }
-
-        .btn-refetch {
             font-size: 3vw;
         }
 
-        .title-mobile {
-            display: block;
-            font-size: 2.5vw;
-            font-weight: 600;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-    }
-
-    @media (min-width: 370px) and (max-width: 800px) {
-        .form-esquerda {
-            display: none;
-        }
-
-        .form-direita {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        form div label {
-            font-size: 2vw;
-        }
-
         .section-form-infos-gerais {
             border-radius: 15px;
             width: 80vw;
         }
 
         form div input {
-            font-size: 1.75vw;
+            font-size: 3vw;
         }
 
         .btn-refetch {
@@ -239,7 +201,45 @@ const Informacoes_gerais_style = createGlobalStyle `
 
         .title-mobile {
             display: block;
+            font-size: 3.5vw;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 800px) {
+        .form-esquerda {
+            display: none;
+        }
+
+        .form-direita {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form div label {
             font-size: 2.5vw;
+        }
+
+        .section-form-infos-gerais {
+            border-radius: 15px;
+            width: 80vw;
+        }
+
+        form div input {
+            font-size: 2.5vw;
+        }
+
+        .btn-refetch {
+            font-size: 3vw;
+        }
+
+        .title-mobile {
+            display: block;
+            font-size: 3vw;
             font-weight: 600;
             margin-bottom: 10px;
             text-align: center;

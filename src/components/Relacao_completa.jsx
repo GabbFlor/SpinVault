@@ -211,7 +211,7 @@ const Relacao_completa = ({ consulta }) => {
                                 <td>{disco.Estilo}</td>
                                 <td>{disco.Tipo}</td>
                                 <td>{disco.Encarte}</td>
-                                <td>{disco.Observacoes}</td>
+                                <td>{disco.Observacoes.length > 10 ? disco.Observacoes.slice(0, 10) + "..." : disco.Observacoes}</td>
                                 <td><Link className="btn-ver-mais" to={`/editar-disco/${disco.id}`}>Editar</Link></td>
                             </tr>
                         ))}

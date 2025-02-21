@@ -81,13 +81,22 @@ const Header_Style = createGlobalStyle `
     }
 
     .header-logo img {
-        // background-color: red;
-        height: 100px;
+        height: 200px;
     }
 
     @media (max-width: 800px) {
         .section-search form input, .section-search form button {
             display: none;
+        }
+
+        .header-logo img {
+            height: 150px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .header-logo img {
+            height: 100px;
         }
     }
 `
