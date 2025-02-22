@@ -1,7 +1,7 @@
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase-config'
 import { useAuth } from '../AuthContext';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { tailChase } from 'ldrs';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 const Perfil_logado = () => {
     const { user, loading } = useAuth();
     const [ diferencaData, setDiferencaData ] = useState(0);
+    const [ carregando, setCarregando ] = useState(false);
+    const [ ultimosDiscos, setUltimosDiscos ] = useState([]);
     const queryClient = useQueryClient();
     tailChase.register()
 
@@ -58,6 +60,8 @@ const Perfil_logado = () => {
             };
     
             calcularDiferenca();
+
+            pegarUltimosDiscos();
         }
     }, [userProfile]);
 
@@ -94,6 +98,33 @@ const Perfil_logado = () => {
                 await signOut(auth);
             }
         })
+    }
+
+    // recuperando infos dos discos
+    const pegarUltimosDiscos = async () => {
+        try {
+            setCarregando(true)
+
+            const discosRef = collection(db, "Discos");
+            const q = query(
+                discosRef, 
+                orderBy("Criado_em", "desc"),
+                where("User_id", "==", user.uid),
+                limit(3),
+            );
+
+            const querySnapshot = await getDocs(q);
+            const discos = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+            return setUltimosDiscos(discos);
+        } catch (error) {
+            console.log(error)            
+        } finally {
+            setCarregando(false)
+        }
     }
 
     return (
@@ -134,29 +165,15 @@ const Perfil_logado = () => {
                 <h1>Adicionados</h1>
 
                 <section className="cards-disks">
-                    <div className="card">
-                    <img src={Card_img} alt="Imagem do cartão" />
+                    {ultimosDiscos.map((disco) => (
+                        <div className="card" key={disco.id}>
+                            <img src={Card_img} alt="Imagem do cartão" />
 
-                        <h1 className='card-title'>Vinil</h1>
+                            <h1 className='card-title'>{disco.Titulo_album}</h1>
 
-                        <button className='btn-card'>Editar</button>
-                    </div>
-
-                    <div className="card">
-                    <img src={Card_img} alt="Imagem do cartão" />
-
-                        <h1 className='card-title'>Vinil</h1>
-
-                        <button className='btn-card'>Editar</button>
-                    </div>
-
-                    <div className="card">
-                    <img src={Card_img} alt="Imagem do cartão" />
-
-                        <h1 className='card-title'>Vinil</h1>
-
-                        <button className='btn-card'>Editar</button>
-                    </div>
+                            <Link className='btn-card' to={`/editar-disco/${disco.id}`}>Editar</Link>
+                        </div>
+                    ))}
                 </section>
             </section>
         </section>

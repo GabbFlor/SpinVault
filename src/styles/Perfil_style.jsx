@@ -118,7 +118,7 @@ const Perfil_style = createGlobalStyle `
     .card {
         background-color: #232323;
         width: fit-content;
-        padding-bottom: 25px;
+        padding: 25px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -367,9 +367,9 @@ const Perfil_style = createGlobalStyle `
         }
 
         .card {
-            padding-bottom: 25px;
+            padding: 15px;
             border-radius: 7.5px;
-            width: 21.66vw
+            width: 21.66vw;
         }
 
         .card img {
@@ -442,6 +442,12 @@ const Perfil_style = createGlobalStyle `
             bottom: 15%;
             right: 3%;
             font-size: 12.5px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .card {
+            padding: 5px;
         }
     }
 `
