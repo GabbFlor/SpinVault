@@ -36,6 +36,38 @@ const Error_page_style = createGlobalStyle `
     .Pag-error section a:hover {
         text-decoration: underline;
     }
+
+    @media (max-width: 800px) {
+        .Pag-error img {
+            height: 25vh;
+            filter: grayscale(1);
+        }
+
+        .Pag-error section h1 {
+            font-size: 5vw;
+            font-weight: 500;
+        }
+
+        .Pag-error section p {
+            font-size: 2.75vw;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .Pag-error img {
+            height: 20vh;
+            filter: grayscale(1);
+        }
+
+        .Pag-error section h1 {
+            font-size: 5.5vw;
+            font-weight: 500;
+        }
+
+        .Pag-error section p {
+            font-size: 3.25vw;
+        }
+    }
 `
 
 export default Error_page_style;
